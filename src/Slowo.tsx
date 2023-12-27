@@ -25,25 +25,31 @@ function ustalKlasęWcześniejsze(słowo: string, rozwiązanie: string, indeks: 
 	}
 }
 
-function ustalKlasę(wpisujeTeraz: boolean, słowo: string, rozwiązanie: string, indeks: number) {
-	if (wpisujeTeraz) {
-		return ustalKlasęWpisywane(słowo, indeks)
-	} else {
-		return ustalKlasęWcześniejsze(słowo, rozwiązanie, indeks)
+function ustalKlasę(etap: string, słowo: string, rozwiązanie: string, indeks: number) {
+	if (etap == 'przed') {
+		return 'nieznana'
 	}
+
+	if (etap == 'teraz') {
+		return ustalKlasęWpisywane(słowo, indeks)
+	}
+
+	return ustalKlasęWcześniejsze(słowo, rozwiązanie, indeks)
 }
 
 function Słowo(
 	props: {
-		wpisujeTeraz: boolean,
-		słowo: string,
+		etap: string,
+		słowo?: string,
 		rozwiązanie: string
 	}
 ) {
-	const literki = props.słowo.padEnd(długośćSłowa, ' ').split('').map(
+	const słowo = props.słowo || ''
+
+	const literki = słowo.padEnd(długośćSłowa, ' ').split('').map(
 		(literka, indeks) => <Literka literka={literka} klasa={ustalKlasę(
-			props.wpisujeTeraz,
-			props.słowo,
+			props.etap,
+			słowo,
 			props.rozwiązanie,
 			indeks
 		)} />
