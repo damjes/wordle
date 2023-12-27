@@ -1,11 +1,9 @@
 import Literka from "./Literka";
 import './Slowo.scss'
 
-const długośćSłowa = 5
-
-function ustalKlasęWpisywane(słowo: string, indeks: number) {
+function ustalKlasęWpisywane(słowo: string, indeks: number, długośćSłowa: number) {
 	const gdzieKursor = słowo.length - (długośćSłowa == słowo.length ? 1 : 0)
-	// odejmij jeden jeśli na końcu słowa
+	// odejmij jeden jeśli na końcu słow
 	// NB: słowo.length to indeks pierwszej wolnej komórki za słowem
 	if (indeks == gdzieKursor) {
 		return 'kursor'
@@ -31,7 +29,7 @@ function ustalKlasę(etap: string, słowo: string, rozwiązanie: string, indeks:
 	}
 
 	if (etap == 'teraz') {
-		return ustalKlasęWpisywane(słowo, indeks)
+		return ustalKlasęWpisywane(słowo, indeks, rozwiązanie.length)
 	}
 
 	return ustalKlasęWcześniejsze(słowo, rozwiązanie, indeks)
@@ -45,6 +43,7 @@ function Słowo(
 	}
 ) {
 	const słowo = props.słowo || ''
+	const długośćSłowa = props.rozwiązanie.length
 
 	const literki = słowo.padEnd(długośćSłowa, ' ').split('').map(
 		(literka, indeks) => <Literka literka={literka} klasa={ustalKlasę(

@@ -5,7 +5,7 @@ function Gra() {
 		<Slowo słowo="ebafe" rozwiązanie="abcde" etap="po" />
 		<Slowo słowo="abcde" rozwiązanie="abcde" etap="po" />
 		<Slowo słowo="ab" rozwiązanie="abcde" etap="teraz" />
-		<Slowo rozwiązanie="abcde" etap="przed" />
+		<Slowo rozwiązanie="abcdef" etap="przed" />
 	</div>
 }
 
