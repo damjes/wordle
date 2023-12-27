@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+$rozmiar: 2em;
+
+.literka {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	width: $rozmiar;
+	height: $rozmiar;
+	border: 0.1em solid gray;
+	border-radius: 0.25em;
+	margin: 0.1em;
+	text-transform: capitalize;
+	font-weight: 700;
+	font-family: Montserrat, Helvetica, 'Open Sans', sans-serif;
+
+	&.dobrze {
+		background-color: lightgreen;
+	}
+
+	&.zle {
+		background-color: lightgray;
+	}
+
+	&.przesunieta {
+		background-color: khaki;
+	}
+
+	&.dostepna, &.nieznana {
+		background-color: whitesmoke;
+	}
+
+	&.kursor {
+		// dodaj cień
+		box-shadow: 0 0 0.2em yellow;
+	}
+}
