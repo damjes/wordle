@@ -34,4 +34,8 @@ $promien: 0.5em;
 	@media screen and (max-height: 600px) {
 		font-size: 0.5em;
 	}
+
+	.wlacznikTrybuTrudnego label {
+		margin: 0.5em; // usunąć wraz z usunięciem debugowania (więcej niż 1 checkbox)
+	}
 }
