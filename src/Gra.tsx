@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Slowo from "./Slowo"
+import Klawiatura from "./Klawiatura"
 
 function Gra() {
 	const [słowo, setSłowo] = useState('')
@@ -39,6 +40,12 @@ function Gra() {
 		<button onClick={() => dopiszLiterke('z')}>z</button>
 		<button onClick={() => setEtap('po')}>PO</button>
 		<p>słowo: {'"' + słowo + '" ' + słowo.length.toString()}</p>
+		<Klawiatura
+			wypróbowane="abcde"
+			rozwiązanie={rozwiązanie}
+			dozwolone={dozwoloneLiterki}
+			klik={dopiszLiterke}
+		/>
 	</div>
 }
 
