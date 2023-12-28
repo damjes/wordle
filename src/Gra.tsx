@@ -23,7 +23,7 @@ function Gra() {
 	const [trybDebug, setTrybDebug] = useState(false)
 	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] = useState(false)
 
-	const wypróbowane: string = próby.slice(numerPróby - 1).join('')
+	const wypróbowane: string = próby.slice(0, numerPróby).join('')
 
 	function mutacjaListy<T>(lista: T[], pozycja: number, nowyElement: T) {
 		return lista.map((element, indeks) => {
@@ -115,14 +115,16 @@ function Gra() {
 		<div className="macierz">
 			{słowa}
 		</div>
-		<button onClick={funkcjaResetu}>{napisResetu}</button>
-		<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
-		<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
 		{
 			trybDebug &&
 			<>
 				<p>rozwiązanie: "{rozwiązanie}"</p>
 				<p>wygranko: "{wygranko}"</p>
+				<p>wypróbowane: "{wypróbowane}"</p>
+				<p>
+					<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
+					<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
+				</p>
 			</>
 		}
 		<p className="wlacznikTrybuTrudnego">
@@ -135,6 +137,7 @@ function Gra() {
 				tryb oszusta (debug)
 			</label>
 		</p>
+		<button className="przyciskResetu" onClick={funkcjaResetu}>{napisResetu}</button>
 		{
 			wygranko != '' &&
 			<div className="koniecGry">
