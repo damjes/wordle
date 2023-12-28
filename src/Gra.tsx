@@ -1,52 +1,79 @@
 import { useState } from "react"
 import Slowo from "./Slowo"
 import Klawiatura from "./Klawiatura"
+import listaSłów from "./piecioliterowe"
+
+function losowyElement<T>(tablica: T[]): T {
+	const indeks = Math.floor(Math.random() * tablica.length)
+	return tablica[indeks]
+}
 
 function Gra() {
-	const [słowo, setSłowo] = useState('')
-	const [etap, setEtap] = useState('teraz')
 	const dozwoloneLiterki = "aąbcćdeęfghijklłmnńoóprsśtuwyzźż".split('')
-	const [wygranko, setWygranko] = useState('')
 
-	const rozwiązanie = 'kotek'
-
+	const [rozwiązanie, setRozwiązanie] = useState(losowyElement(listaSłów))
 	const długośćSłowa = rozwiązanie.length
 	const liczbaPrób = długośćSłowa + 1
 
+	const [próby, setPróby] = useState(Array(liczbaPrób).fill(''))
+	const [numerPróby, setNumerPróby] = useState(0)
+	const [wygranko, setWygranko] = useState('')
+
 	function resetuj() {
-		setSłowo('')
-		setEtap('teraz')
+		setRozwiązanie(losowyElement(listaSłów))
+		setPróby(Array(liczbaPrób).fill(''))
+		setNumerPróby(0)
 		setWygranko('')
 	}
 
-	function dopiszLiterke(literka: string) {
+	const wypróbowane: string = próby.slice(numerPróby - 1).join('')
+
+	function dopiszLiterkę(literka: string) {
+		if(wygranko != '') {
+			return // zablokuj wpisywanie po wygranej/przegranej
+		}
+		if(wypróbowane.includes(literka)) {
+			return // zablokuj ponowne wpisywanie tej samej literki
+		}
 		if(!dozwoloneLiterki.includes(literka)) {
-			return
+			return // zablokuj wpisywanie niedozwolonych liter
 		}
-		if(słowo.length < długośćSłowa) {
-			setSłowo(słowo + literka)
-		} else {
-			setSłowo(słowo.slice(0, -1) + literka)
-		}
+
+		const bezOstatniej = próby[numerPróby].slice(0, długośćSłowa - 1)
+
+		setPróby(próby.map((słowo, indeks) => {
+			if(indeks == numerPróby) {
+				return bezOstatniej + literka
+			} else {
+				return słowo
+			}
+		}))
 	}
 
+	const słowa = próby.map((słowo, indeks) =>
+		<Slowo
+			etap={indeks == numerPróby ? 'teraz' : indeks < numerPróby ? 'po' : 'przed'}
+			słowo={słowo}
+			rozwiązanie={rozwiązanie}
+			key={indeks}
+		/>
+	)
+
 	return <div className="gra">
-		<Slowo etap={etap} słowo={słowo} rozwiązanie={rozwiązanie} />
+		<div className="macierz">
+			{słowa}
+		</div>
 		<button onClick={() => resetuj()}>RESET</button>
-		<button onClick={() => dopiszLiterke('e')}>e</button>
-		<button onClick={() => dopiszLiterke('k')}>k</button>
-		<button onClick={() => dopiszLiterke('o')}>o</button>
-		<button onClick={() => dopiszLiterke('t')}>t</button>
-		<button onClick={() => dopiszLiterke('z')}>z</button>
-		<button onClick={() => setEtap('po')}>PO</button>
-		<p>słowo: {'"' + słowo + '" ' + słowo.length.toString()}</p>
+		<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
+		<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
+		<p>rozwiązanie: {'"' + rozwiązanie + '"'}</p>
 		<Klawiatura
 			wypróbowane="abcde"
 			rozwiązanie={rozwiązanie}
 			dozwolone={dozwoloneLiterki}
-			klikLiterka={dopiszLiterke}
-			klikEnter={() => setEtap('po')}
-			klikBackspace={() => setSłowo(słowo.slice(0, -1))}
+			klikLiterka={dopiszLiterkę}
+			klikEnter={() => console.log('enter')}
+			klikBackspace={() => console.log('backspace')}
 		/>
 	</div>
 }

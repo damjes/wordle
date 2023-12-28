@@ -1,4 +1,4 @@
-const piecioliterowe = [
+const listaSłów = [
 	'abaja',
 	'abaka',
 	'abbuś',
@@ -7178,3 +7178,5 @@ const piecioliterowe = [
 	'żywot',
 	'żyzny',
 ]
+
+export default listaSłów
