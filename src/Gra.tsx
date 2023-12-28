@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Slowo from './Slowo'
 import Klawiatura from './Klawiatura'
 import listaSłów from './piecioliterowe'
+import Słowo from './Slowo'
 
 function losowyElement<T>(tablica: T[]): T {
 	const indeks = Math.floor(Math.random() * tablica.length)
@@ -124,7 +125,7 @@ function Gra() {
 				<p>wygranko: "{wygranko}"</p>
 			</>
 		}
-		<p>
+		<p className="wlacznikTrybuTrudnego">
 			<label>
 				<input type="checkbox" checked={trybTrudny} onChange={przełączTrybTrudny} />
 				tryb trudny
@@ -134,6 +135,22 @@ function Gra() {
 				tryb oszusta (debug)
 			</label>
 		</p>
+		{
+			wygranko != '' &&
+			<div className="koniecGry">
+				<p className="wiadomosc">
+					{wygranko == 'tak' ? 'Wygrałeś!' : 'Przegrałeś!'}
+				</p>
+				<div className="opisRozwiazania">
+					<p>Rozwiązanie to:</p>
+					<Słowo
+						etap='po'
+						słowo={rozwiązanie}
+						rozwiązanie={rozwiązanie}
+					/>
+				</div>
+			</div>
+		}
 		<Klawiatura
 			wypróbowane={wypróbowane}
 			rozwiązanie={rozwiązanie}
