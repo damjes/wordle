@@ -38,20 +38,20 @@ $rozmiarKlawisza: 2rem;
 		box-shadow: 0 0 0.2em yellow;
 	}
 
+	&.klawisz {
+		width: $rozmiarKlawisza;
+		height: $rozmiarKlawisza;
+	}
+
 	&.enter {
 		background-color: green;
 		color: white;
-		width: 4em;
+		width: 2 * $rozmiarKlawisza;
 	}
 
 	&.backspace {
 		background-color: red;
 		color: white;
-		width: 4em;
-	}
-
-	&.klawisz {
-		width: $rozmiarKlawisza;
-		height: $rozmiarKlawisza;
+		width: 2 * $rozmiarKlawisza;
 	}
 }
