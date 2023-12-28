@@ -1,5 +1,4 @@
 import Gra from './komponenty/Gra'
-import './App.scss'
 
 function App() {
 	return (

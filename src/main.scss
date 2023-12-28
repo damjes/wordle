@@ -1,15 +1,21 @@
 $promien: 0.5em;
 
-button {
-	border: none;
-	border-radius: $promien;
-	padding: $promien;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+	background-color: ghostwhite;
+	font-family: 'Roboto', sans-serif;
 	font-size: 1em;
-	color: white;
-	background-color: royalblue;
-	font-weight: bold;
-	display: block;
-	margin: 1em auto;
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 0.5em;
+	text-align: center;
 }
 
 footer {
@@ -21,4 +27,16 @@ footer {
 	a:link, a:visited {
 		color: darkgray;
 	}
+}
+
+button {
+	border: none;
+	border-radius: $promien;
+	padding: $promien;
+	font-size: 1em;
+	color: white;
+	background-color: royalblue;
+	font-weight: bold;
+	display: block;
+	margin: 1em auto;
 }
