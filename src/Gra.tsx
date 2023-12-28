@@ -4,6 +4,8 @@ import Klawiatura from './Klawiatura'
 import listaSłów from './piecioliterowe'
 import Słowo from './Slowo'
 
+import './Gra.scss'
+
 function losowyElement<T>(tablica: T[]): T {
 	const indeks = Math.floor(Math.random() * tablica.length)
 	return tablica[indeks]

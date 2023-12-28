@@ -38,12 +38,14 @@ $rozmiar: 2em;
 	}
 
 	&.enter {
-		background-color: lightblue;
-		width: 4em;
+		background-color: green;
+		color: white;
+		width: 5.25em;
 	}
 
 	&.backspace {
-		background-color: lightblue;
-		width: 3em;
+		background-color: red;
+		color: white;
+		width: 3.1em;
 	}
 }
