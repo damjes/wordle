@@ -34,6 +34,7 @@ function Gra() {
 	const [numerPróby, setNumerPróby] = useState(0)
 	const [wygranko, setWygranko] = useState('')
 	const [trybTrudny, setTrybTrudny] = useState(false)
+	const [zmianaTrybuTrudnego, setZmianaTrybuTrudnego] = useState(true)
 	const [trybDebug, setTrybDebug] = useState(false)
 	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] = useState(false)
 	const [treśćOkienka, setTreśćOkienka] = useState('')
@@ -54,6 +55,7 @@ function Gra() {
 		setPróby(Array(liczbaPrób).fill(''))
 		setNumerPróby(0)
 		setWygranko('')
+		setZmianaTrybuTrudnego(true)
 		setPotwierdzeniePoddaniaSię(false)
 	}
 
@@ -81,6 +83,8 @@ function Gra() {
 			return
 		}
 
+		setZmianaTrybuTrudnego(false)
+
 		if(trybTrudny) {
 			if(!listaSłów.includes(bieżąceSłowo)) {
 				setTytułOkienka('Ograniczenie trybu trudnego')
@@ -95,6 +99,7 @@ function Gra() {
 
 		if(bieżąceSłowo == rozwiązanie) {
 			setWygranko('tak')
+			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Wygranko')
 			setTreśćOkienka('Gratulacje! Udało Ci się odgadnąć słowo.')
 			setTrigerOkienka(!trigerOkienka)
@@ -103,6 +108,7 @@ function Gra() {
 
 		if(nowyNumerPróby == liczbaPrób) {
 			setWygranko('nie')
+			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Przegranko')
 			setTreśćOkienka('Niestety, nie udało Ci się odgadnąć słowa.')
 			setTrigerOkienka(!trigerOkienka)
@@ -112,31 +118,10 @@ function Gra() {
 		setNumerPróby(nowyNumerPróby)
 	}
 
-	function czyMogęPrzełączyćTrybTrudny() {
-		if(trybDebug) {
-			return true // zawsze można przełączyć tryb w trybie debug
-		}
-		if(wygranko != '') {
-			return true // zezwól na przełączanie po wygranej/przegranej
-		}
-		if(numerPróby > 0) {
-			return false // zablokuj przełączanie po rozpoczęciu gry
-		}
-		if(próby[0] != '') {
-			return false // zablokuj przełączanie po rozpoczęciu gry
-		}
-
-		return true
-	}
-
 	function przełączTrybTrudny() {
 		setPotwierdzeniePoddaniaSię(false)
-		if(czyMogęPrzełączyćTrybTrudny()) {
+		if(zmianaTrybuTrudnego) {
 			setTrybTrudny(!trybTrudny)
-		} else {
-			setTytułOkienka('')
-			setTreśćOkienka('Nie można przełączyć trybu po rozpoczęciu gry.')
-			setTrigerOkienka(!trigerOkienka)
 		}
 	}
 
@@ -211,7 +196,7 @@ function Gra() {
 				<input
 					type="checkbox"
 					checked={trybTrudny}
-					disabled={!czyMogęPrzełączyćTrybTrudny()}
+					disabled={!zmianaTrybuTrudnego}
 					onChange={przełączTrybTrudny} />
 				tryb trudny
 			</label>
