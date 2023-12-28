@@ -1,14 +1,26 @@
-import { useState } from 'react'
-import Slowo from './Slowo'
+import { useEffect, useRef, useState } from 'react'
+
 import Klawiatura from './Klawiatura'
-import listaSłów from '../piecioliterowe'
+import Okienko from './Okienko'
 import Słowo from './Slowo'
+
+import listaSłów from '../piecioliterowe'
 
 import './Gra.scss'
 
 function losowyElement<T>(tablica: T[]): T {
 	const indeks = Math.floor(Math.random() * tablica.length)
 	return tablica[indeks]
+}
+
+function mutacjaListy<T>(lista: T[], pozycja: number, nowyElement: T) {
+	return lista.map((element, indeks) => {
+		if(indeks == pozycja) {
+			return nowyElement
+		} else {
+			return element
+		}
+	})
 }
 
 function Gra() {
@@ -24,18 +36,18 @@ function Gra() {
 	const [trybTrudny, setTrybTrudny] = useState(false)
 	const [trybDebug, setTrybDebug] = useState(false)
 	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] = useState(false)
+	const [treśćOkienka, setTreśćOkienka] = useState('')
+	const [tytułOkienka, setTytułOkienka] = useState('')
+	const [trigerOkienka, setTrigerOkienka] = useState(false)
+
+	const okienko = useRef<HTMLDialogElement>(null)
 
 	const wypróbowane: string = próby.slice(0, numerPróby).join('')
 
-	function mutacjaListy<T>(lista: T[], pozycja: number, nowyElement: T) {
-		return lista.map((element, indeks) => {
-			if(indeks == pozycja) {
-				return nowyElement
-			} else {
-				return element
-			}
-		})
-	}
+	useEffect(() => {
+		if(treśćOkienka != '') {
+			okienko.current?.showModal()
+		}}, [trigerOkienka])
 
 	function resetuj() {
 		setRozwiązanie(losowyElement(listaSłów))
@@ -62,9 +74,18 @@ function Gra() {
 
 		const bieżąceSłowo = próby[numerPróby]
 
+		if(bieżąceSłowo.length != długośćSłowa) {
+			setTytułOkienka('Niewpisane słowo')
+			setTreśćOkienka('Słowo jest za krótkie. Wpisz całe słowo.')
+			setTrigerOkienka(!trigerOkienka)
+			return
+		}
+
 		if(trybTrudny) {
 			if(!listaSłów.includes(bieżąceSłowo)) {
-				alert('Ograniczenie trybu trudnego: nie ma takiego słowa.')
+				setTytułOkienka('Ograniczenie trybu trudnego')
+				setTreśćOkienka('Nie ma takiego słowa.')
+				setTrigerOkienka(!trigerOkienka)
 				setPróby(mutacjaListy(próby, numerPróby, ''))
 				return
 			}
@@ -74,11 +95,17 @@ function Gra() {
 
 		if(bieżąceSłowo == rozwiązanie) {
 			setWygranko('tak')
+			setTytułOkienka('Wygranko')
+			setTreśćOkienka('Gratulacje! Udało Ci się odgadnąć słowo.')
+			setTrigerOkienka(!trigerOkienka)
 			return
 		}
 
 		if(nowyNumerPróby == liczbaPrób) {
 			setWygranko('nie')
+			setTytułOkienka('Przegranko')
+			setTreśćOkienka('Niestety, nie udało Ci się odgadnąć słowa.')
+			setTrigerOkienka(!trigerOkienka)
 			return
 		}
 
@@ -90,7 +117,7 @@ function Gra() {
 			return true // zawsze można przełączyć tryb w trybie debug
 		}
 		if(wygranko != '') {
-			return false // zablokuj przełączanie po wygranej/przegranej
+			return true // zezwól na przełączanie po wygranej/przegranej
 		}
 		if(numerPróby > 0) {
 			return false // zablokuj przełączanie po rozpoczęciu gry
@@ -107,7 +134,9 @@ function Gra() {
 		if(czyMogęPrzełączyćTrybTrudny()) {
 			setTrybTrudny(!trybTrudny)
 		} else {
-			alert('Nie można przełączyć trybu po rozpoczęciu gry.')
+			setTytułOkienka('')
+			setTreśćOkienka('Nie można przełączyć trybu po rozpoczęciu gry.')
+			setTrigerOkienka(!trigerOkienka)
 		}
 	}
 
@@ -118,7 +147,9 @@ function Gra() {
 		}
 		if(trybTrudny) {
 			if(wypróbowane.includes(literka) && !rozwiązanie.includes(literka)) {
-				alert('Ograniczenie trybu trudnego: nie można wpisać tej litery, bo jest niepoprawna.')
+				setTytułOkienka('Ograniczenie trybu trudnego')
+				setTreśćOkienka('Nie można wpisać tej litery, bo jest niepoprawna.')
+				setTrigerOkienka(!trigerOkienka)
 				return // zablokuj ponowne wpisywanie tej samej błędnej literki
 			}
 		}
@@ -132,7 +163,7 @@ function Gra() {
 	}
 
 	const słowa = próby.map((słowo, indeks) =>
-		<Slowo
+		<Słowo
 			etap={wygranko == '' ?
 				(indeks == numerPróby ? 'teraz' : indeks < numerPróby ? 'po' : 'przed') :
 				'po'}
@@ -156,6 +187,10 @@ function Gra() {
 	)
 
 	return <div className="gra">
+		<Okienko
+			tytuł={tytułOkienka}
+			tekst={treśćOkienka}
+			refOkienka={okienko} />
 		<div className="macierz">
 			{słowa}
 		</div>
@@ -173,7 +208,11 @@ function Gra() {
 		}
 		<p className="wlacznikTrybuTrudnego">
 			<label>
-				<input type="checkbox" checked={trybTrudny} onChange={przełączTrybTrudny} />
+				<input
+					type="checkbox"
+					checked={trybTrudny}
+					disabled={!czyMogęPrzełączyćTrybTrudny()}
+					onChange={przełączTrybTrudny} />
 				tryb trudny
 			</label>
 			<label>
@@ -183,19 +222,14 @@ function Gra() {
 		</p>
 		<button className={klasaResetu} onClick={funkcjaResetu}>{napisResetu}</button>
 		{
-			wygranko != '' &&
-			<div className="koniecGry">
-				<p className="wiadomosc">
-					{wygranko == 'tak' ? 'Wygrałeś!' : 'Przegrałeś!'}
-				</p>
-				<div className="opisRozwiazania">
-					<p>Rozwiązanie to:</p>
-					<Słowo
-						etap='po'
-						słowo={rozwiązanie}
-						rozwiązanie={rozwiązanie}
-					/>
-				</div>
+			wygranko == 'nie' &&
+			<div className="opisRozwiazania">
+				<p>Rozwiązanie to:</p>
+				<Słowo
+					etap='po'
+					słowo={rozwiązanie}
+					rozwiązanie={rozwiązanie}
+				/>
 			</div>
 		}
 		<Klawiatura
