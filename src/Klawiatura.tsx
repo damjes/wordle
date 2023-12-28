@@ -1,4 +1,4 @@
-import Literka from "./Literka"
+import Literka from './Literka'
 import './Klawiatura.scss'
 
 function ustalKlasę(literka: string, wypróbowane: string, rozwiązanie: string) {

@@ -1,4 +1,4 @@
-import Literka from "./Literka";
+import Literka from './Literka'
 import './Slowo.scss'
 
 function ustalKlasęWpisywane(słowo: string, indeks: number, długośćSłowa: number) {

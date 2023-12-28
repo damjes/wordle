@@ -1,7 +1,7 @@
-import { useState } from "react"
-import Slowo from "./Slowo"
-import Klawiatura from "./Klawiatura"
-import listaSłów from "./piecioliterowe"
+import { useState } from 'react'
+import Slowo from './Slowo'
+import Klawiatura from './Klawiatura'
+import listaSłów from './piecioliterowe'
 
 function losowyElement<T>(tablica: T[]): T {
 	const indeks = Math.floor(Math.random() * tablica.length)
