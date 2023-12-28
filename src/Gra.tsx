@@ -95,7 +95,7 @@ function Gra() {
 			tryb trudny
 		</label>
 		<Klawiatura
-			wypróbowane="abcde"
+			wypróbowane={wypróbowane}
 			rozwiązanie={rozwiązanie}
 			dozwolone={dozwoloneLiterki}
 			klikLiterka={dopiszLiterkę}
