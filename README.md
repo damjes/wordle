@@ -17,3 +17,4 @@ npm run dev
 ## Kreditsy
 
 - [Słownik](https://sjp.pl/sl/odmiany/)
+- [Favicon.io](https://favicon.io/favicon-generator/)
