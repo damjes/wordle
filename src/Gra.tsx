@@ -18,12 +18,35 @@ function Gra() {
 	const [próby, setPróby] = useState(Array(liczbaPrób).fill(''))
 	const [numerPróby, setNumerPróby] = useState(0)
 	const [wygranko, setWygranko] = useState('')
+	const [trybTrudny, setTrybTrudny] = useState(false)
 
 	function resetuj() {
 		setRozwiązanie(losowyElement(listaSłów))
 		setPróby(Array(liczbaPrób).fill(''))
 		setNumerPróby(0)
 		setWygranko('')
+	}
+
+	function czyMogęPrzełączyćTrybTrudny() {
+		if(wygranko != '') {
+			return false // zablokuj przełączanie po wygranej/przegranej
+		}
+		if(numerPróby > 0) {
+			return false // zablokuj przełączanie po rozpoczęciu gry
+		}
+		if(próby[0] != '') {
+			return false // zablokuj przełączanie po rozpoczęciu gry
+		}
+
+		return true
+	}
+
+	function przełączTrybTrudny() {
+		if(czyMogęPrzełączyćTrybTrudny()) {
+			setTrybTrudny(!trybTrudny)
+		} else {
+			alert('Nie można przełączyć trybu po rozpoczęciu gry.')
+		}
 	}
 
 	const wypróbowane: string = próby.slice(numerPróby - 1).join('')
@@ -67,6 +90,10 @@ function Gra() {
 		<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
 		<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
 		<p>rozwiązanie: {'"' + rozwiązanie + '"'}</p>
+		<label>
+			<input type="checkbox" checked={trybTrudny} onChange={przełączTrybTrudny} />
+			tryb trudny
+		</label>
 		<Klawiatura
 			wypróbowane="abcde"
 			rozwiązanie={rozwiązanie}
