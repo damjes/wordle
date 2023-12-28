@@ -46,12 +46,16 @@ function Słowo(
 	const długośćSłowa = props.rozwiązanie.length
 
 	const literki = słowo.padEnd(długośćSłowa, ' ').split('').map(
-		(literka, indeks) => <Literka literka={literka} klasa={ustalKlasę(
-			props.etap,
-			słowo,
-			props.rozwiązanie,
-			indeks
-		)} />
+		(literka, indeks) => <Literka
+			literka={literka}
+			klasa={ustalKlasę(
+				props.etap,
+				słowo,
+				props.rozwiązanie,
+				indeks
+			)}
+			key={indeks}
+		/>
 	)
 
 	return <div className="slowo">
