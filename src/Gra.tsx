@@ -113,6 +113,11 @@ function Gra() {
 		(potwierdzeniePoddaniaSię ? () => setWygranko('nie') : () => setPotwierdzeniePoddaniaSię(true)) :
 		resetuj
 
+	const klasaResetu = 'przyciskResetu' + (wygranko == '' ?
+		(potwierdzeniePoddaniaSię ? ' naPewno' : '') :
+		' jeszczeRaz'
+	)
+
 	return <div className="gra">
 		<div className="macierz">
 			{słowa}
@@ -139,7 +144,7 @@ function Gra() {
 				tryb oszusta (debug)
 			</label>
 		</p>
-		<button className="przyciskResetu" onClick={funkcjaResetu}>{napisResetu}</button>
+		<button className={klasaResetu} onClick={funkcjaResetu}>{napisResetu}</button>
 		{
 			wygranko != '' &&
 			<div className="koniecGry">

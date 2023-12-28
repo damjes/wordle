@@ -1,5 +1,26 @@
+$promien: 0.5em;
+
 .gra {
 	text-align: center;
-	width: 20em;
+	max-width: 30em;
 	margin: 0 auto;
+
+	.przyciskResetu {
+		margin: 1em;
+		border: none;
+		border-radius: $promien;
+		padding: $promien;
+		font-size: 1em;
+		color: white;
+		background-color: royalblue;
+		font-weight: bold;
+
+		&.jeszczeRaz {
+			background-color: green;
+		}
+
+		&.naPewno {
+			background-color: darkorange;
+		}
+	}
 }
