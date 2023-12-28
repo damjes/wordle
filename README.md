@@ -18,3 +18,4 @@ npm run dev
 
 - [Słownik](https://sjp.pl/sl/odmiany/)
 - [Favicon.io](https://favicon.io/favicon-generator/)
+- [GitHub Corner](https://tholman.com/github-corners/) ([GitHub](https://github.com/tholman/github-corners))

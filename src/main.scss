@@ -11,3 +11,14 @@ button {
 	display: block;
 	margin: 1em auto;
 }
+
+footer {
+	margin-top: 2em;
+	text-align: center;
+	font-size: 0.8em;
+	color: gray;
+
+	a:link, a:visited {
+		color: darkgray;
+	}
+}
