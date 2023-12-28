@@ -4,7 +4,7 @@ import Klawiatura from './Klawiatura'
 import Okienko from './Okienko'
 import Słowo from './Slowo'
 
-import listaSłów from '../piecioliterowe'
+import listaSłów from '../slownik'
 
 import './Gra.scss'
 
