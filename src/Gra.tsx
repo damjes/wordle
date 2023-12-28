@@ -20,6 +20,18 @@ function Gra() {
 	const [wygranko, setWygranko] = useState('')
 	const [trybTrudny, setTrybTrudny] = useState(false)
 
+	const wypróbowane: string = próby.slice(numerPróby - 1).join('')
+
+	function mutacjaListy<T>(lista: T[], pozycja: number, nowyElement: T) {
+		return lista.map((element, indeks) => {
+			if(indeks == pozycja) {
+				return nowyElement
+			} else {
+				return element
+			}
+		})
+	}
+
 	function resetuj() {
 		setRozwiązanie(losowyElement(listaSłów))
 		setPróby(Array(liczbaPrób).fill(''))
@@ -49,8 +61,6 @@ function Gra() {
 		}
 	}
 
-	const wypróbowane: string = próby.slice(numerPróby - 1).join('')
-
 	function dopiszLiterkę(literka: string) {
 		if(wygranko != '') {
 			return // zablokuj wpisywanie po wygranej/przegranej
@@ -64,13 +74,7 @@ function Gra() {
 
 		const bezOstatniej = próby[numerPróby].slice(0, długośćSłowa - 1)
 
-		setPróby(próby.map((słowo, indeks) => {
-			if(indeks == numerPróby) {
-				return bezOstatniej + literka
-			} else {
-				return słowo
-			}
-		}))
+		setPróby(mutacjaListy(próby, numerPróby, bezOstatniej + literka))
 	}
 
 	const słowa = próby.map((słowo, indeks) =>
@@ -89,7 +93,7 @@ function Gra() {
 		<button onClick={() => resetuj()}>RESET</button>
 		<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
 		<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
-		<p>rozwiązanie: {'"' + rozwiązanie + '"'}</p>
+		<p>rozwiązanie: "{rozwiązanie}"</p>
 		<label>
 			<input type="checkbox" checked={trybTrudny} onChange={przełączTrybTrudny} />
 			tryb trudny
