@@ -69,8 +69,11 @@ function Gra() {
 		if(wygranko != '') {
 			return // zablokuj wpisywanie po wygranej/przegranej
 		}
-		if(wypróbowane.includes(literka)) {
-			return // zablokuj ponowne wpisywanie tej samej literki
+		if(trybTrudny) {
+			if(wypróbowane.includes(literka) && !rozwiązanie.includes(literka)) {
+				alert('Ograniczenie trybu trudnego: nie można wpisać tej litery, bo jest niepoprawna.')
+				return // zablokuj ponowne wpisywanie tej samej błędnej literki
+			}
 		}
 		if(!dozwoloneLiterki.includes(literka)) {
 			return // zablokuj wpisywanie niedozwolonych liter
