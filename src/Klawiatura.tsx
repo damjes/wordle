@@ -33,13 +33,13 @@ function Klawiatura(props: {
 		{literki}
 		<Literka
 			literka="⮐"
-			klasa="enter"
+			klasa="klawisz enter"
 			klik={props.klikEnter}
 			key={'enter'}
 		/>
 		<Literka
 			literka="⌫"
-			klasa="backspace"
+			klasa="klawisz backspace"
 			klik={props.klikBackspace}
 			key={'backspace'}
 		/>
