@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 $rozmiar: 2em;
+$rozmiarKlawisza: 2rem;
 
 .literka {
 	display: flex;
@@ -47,5 +48,10 @@ $rozmiar: 2em;
 		background-color: red;
 		color: white;
 		width: 4em;
+	}
+
+	&.klawisz {
+		width: $rozmiarKlawisza;
+		height: $rozmiarKlawisza;
 	}
 }

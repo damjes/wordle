@@ -23,7 +23,7 @@ function Klawiatura(props: {
 	const literki = props.dozwolone.map(literka =>
 		<Literka
 			literka={literka}
-			klasa={ustalKlasę(literka, props.wypróbowane, props.rozwiązanie)}
+			klasa={'klawisz ' + ustalKlasę(literka, props.wypróbowane, props.rozwiązanie)}
 			klik={() => props.klikLiterka(literka)}
 			key={literka}
 		/>

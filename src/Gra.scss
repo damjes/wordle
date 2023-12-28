@@ -25,4 +25,12 @@ $promien: 0.5em;
 			background-color: darkorange;
 		}
 	}
+
+	@media screen and (max-height: 750px) {
+		font-size: 0.75em;
+	}
+
+	@media screen and (max-height: 600px) {
+		font-size: 0.5em;
+	}
 }
