@@ -19,6 +19,7 @@ function Gra() {
 	const [numerPróby, setNumerPróby] = useState(0)
 	const [wygranko, setWygranko] = useState('')
 	const [trybTrudny, setTrybTrudny] = useState(false)
+	const [trybDebug, setTrybDebug] = useState(false)
 
 	const wypróbowane: string = próby.slice(numerPróby - 1).join('')
 
@@ -44,6 +45,9 @@ function Gra() {
 	}
 
 	function czyMogęPrzełączyćTrybTrudny() {
+		if(trybDebug) {
+			return true // zawsze można przełączyć tryb w trybie debug
+		}
 		if(wygranko != '') {
 			return false // zablokuj przełączanie po wygranej/przegranej
 		}
@@ -100,11 +104,20 @@ function Gra() {
 		<button onClick={() => resetuj()}>RESET</button>
 		<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
 		<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
-		<p>rozwiązanie: "{rozwiązanie}"</p>
-		<label>
-			<input type="checkbox" checked={trybTrudny} onChange={przełączTrybTrudny} />
-			tryb trudny
-		</label>
+		{
+			trybDebug &&
+			<p>rozwiązanie: "{rozwiązanie}"</p>
+		}
+		<p>
+			<label>
+				<input type="checkbox" checked={trybTrudny} onChange={przełączTrybTrudny} />
+				tryb trudny
+			</label>
+			<label>
+				<input type="checkbox" checked={trybDebug} onChange={() => {setTrybDebug(!trybDebug)}} />
+				tryb oszusta (debug)
+			</label>
+		</p>
 		<Klawiatura
 			wypróbowane={wypróbowane}
 			rozwiązanie={rozwiązanie}
