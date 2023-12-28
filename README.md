@@ -3,6 +3,8 @@
 Reimplementacja [Wordle](https://www.nytimes.com/puzzles/wordle)
 w TypeScript + React + Vite.
 
+Możesz zagrać [online](https://wordle.damj.es/).
+
 ## Uruchomienie
 
 Standardowy Vite:
