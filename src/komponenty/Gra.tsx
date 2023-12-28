@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Slowo from './Slowo'
 import Klawiatura from './Klawiatura'
-import listaSłów from './piecioliterowe'
+import listaSłów from '../piecioliterowe'
 import Słowo from './Slowo'
 
 import './Gra.scss'

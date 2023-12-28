@@ -1,4 +1,4 @@
-import Gra from './Gra'
+import Gra from './komponenty/Gra'
 import './App.scss'
 
 function App() {
