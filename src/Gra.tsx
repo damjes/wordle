@@ -44,7 +44,9 @@ function Gra() {
 			wypróbowane="abcde"
 			rozwiązanie={rozwiązanie}
 			dozwolone={dozwoloneLiterki}
-			klik={dopiszLiterke}
+			klikLiterka={dopiszLiterke}
+			klikEnter={() => setEtap('po')}
+			klikBackspace={() => setSłowo(słowo.slice(0, -1))}
 		/>
 	</div>
 }

@@ -36,4 +36,14 @@ $rozmiar: 2em;
 		// dodaj cień
 		box-shadow: 0 0 0.2em yellow;
 	}
+
+	&.enter {
+		background-color: lightblue;
+		width: 4em;
+	}
+
+	&.backspace {
+		background-color: lightblue;
+		width: 3em;
+	}
 }

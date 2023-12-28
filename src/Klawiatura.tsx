@@ -16,18 +16,30 @@ function Klawiatura(props: {
 	wypróbowane: string,
 	rozwiązanie: string,
 	dozwolone: string[],
-	klik: (literka: string) => void
+	klikLiterka: (literka: string) => void,
+	klikEnter: () => void,
+	klikBackspace: () => void,
 }) {
 	const literki = props.dozwolone.map(literka =>
 		<Literka
 			literka={literka}
 			klasa={ustalKlasę(literka, props.wypróbowane, props.rozwiązanie)}
-			klik={() => props.klik(literka)}
+			klik={() => props.klikLiterka(literka)}
 		/>
 	)
 
 	return <div className="klawiatura">
 		{literki}
+		<Literka
+			literka="⮐"
+			klasa="enter"
+			klik={props.klikEnter}
+		/>
+		<Literka
+			literka="⌫"
+			klasa="backspace"
+			klik={props.klikBackspace}
+		/>
 	</div>
 }
 
