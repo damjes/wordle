@@ -20,6 +20,7 @@ function Gra() {
 	const [wygranko, setWygranko] = useState('')
 	const [trybTrudny, setTrybTrudny] = useState(false)
 	const [trybDebug, setTrybDebug] = useState(false)
+	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] = useState(false)
 
 	const wypróbowane: string = próby.slice(numerPróby - 1).join('')
 
@@ -38,9 +39,11 @@ function Gra() {
 		setPróby(Array(liczbaPrób).fill(''))
 		setNumerPróby(0)
 		setWygranko('')
+		setPotwierdzeniePoddaniaSię(false)
 	}
 
 	function backspace() {
+		setPotwierdzeniePoddaniaSię(false)
 		setPróby(mutacjaListy(próby, numerPróby, próby[numerPróby].slice(0, -1)))
 	}
 
@@ -62,6 +65,7 @@ function Gra() {
 	}
 
 	function przełączTrybTrudny() {
+		setPotwierdzeniePoddaniaSię(false)
 		if(czyMogęPrzełączyćTrybTrudny()) {
 			setTrybTrudny(!trybTrudny)
 		} else {
@@ -70,6 +74,7 @@ function Gra() {
 	}
 
 	function dopiszLiterkę(literka: string) {
+		setPotwierdzeniePoddaniaSię(false)
 		if(wygranko != '') {
 			return // zablokuj wpisywanie po wygranej/przegranej
 		}
@@ -97,16 +102,27 @@ function Gra() {
 		/>
 	)
 
+	const napisResetu = wygranko == '' ?
+		(potwierdzeniePoddaniaSię ? 'Czy na pewno?' : 'Poddaj się') :
+		'Zagraj jeszcze raz'
+
+	const funkcjaResetu = wygranko == '' ?
+		(potwierdzeniePoddaniaSię ? () => setWygranko('nie') : () => setPotwierdzeniePoddaniaSię(true)) :
+		resetuj
+
 	return <div className="gra">
 		<div className="macierz">
 			{słowa}
 		</div>
-		<button onClick={() => resetuj()}>RESET</button>
+		<button onClick={funkcjaResetu}>{napisResetu}</button>
 		<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
 		<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
 		{
 			trybDebug &&
-			<p>rozwiązanie: "{rozwiązanie}"</p>
+			<>
+				<p>rozwiązanie: "{rozwiązanie}"</p>
+				<p>wygranko: "{wygranko}"</p>
+			</>
 		}
 		<p>
 			<label>
