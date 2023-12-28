@@ -46,8 +46,43 @@ function Gra() {
 	}
 
 	function backspace() {
+		if(wygranko != '') {
+			return // zablokuj usuwanie po wygranej/przegranej
+		}
 		setPotwierdzeniePoddaniaSię(false)
 		setPróby(mutacjaListy(próby, numerPróby, próby[numerPróby].slice(0, -1)))
+	}
+
+	function enter() {
+		if(wygranko != '') {
+			return // zablokuj enter po wygranej/przegranej
+		}
+
+		setPotwierdzeniePoddaniaSię(false)
+
+		const bieżąceSłowo = próby[numerPróby]
+
+		if(trybTrudny) {
+			if(!listaSłów.includes(bieżąceSłowo)) {
+				alert('Ograniczenie trybu trudnego: nie ma takiego słowa.')
+				setPróby(mutacjaListy(próby, numerPróby, ''))
+				return
+			}
+		}
+
+		const nowyNumerPróby = numerPróby + 1
+
+		if(bieżąceSłowo == rozwiązanie) {
+			setWygranko('tak')
+			return
+		}
+
+		if(nowyNumerPróby == liczbaPrób) {
+			setWygranko('nie')
+			return
+		}
+
+		setNumerPróby(nowyNumerPróby)
 	}
 
 	function czyMogęPrzełączyćTrybTrudny() {
@@ -98,7 +133,9 @@ function Gra() {
 
 	const słowa = próby.map((słowo, indeks) =>
 		<Slowo
-			etap={indeks == numerPróby ? 'teraz' : indeks < numerPróby ? 'po' : 'przed'}
+			etap={wygranko == '' ?
+				(indeks == numerPróby ? 'teraz' : indeks < numerPróby ? 'po' : 'przed') :
+				'po'}
 			słowo={słowo}
 			rozwiązanie={rozwiązanie}
 			key={indeks}
@@ -166,7 +203,7 @@ function Gra() {
 			rozwiązanie={rozwiązanie}
 			dozwolone={dozwoloneLiterki}
 			klikLiterka={dopiszLiterkę}
-			klikEnter={() => console.log('enter')}
+			klikEnter={enter}
 			klikBackspace={backspace}
 		/>
 	</div>
