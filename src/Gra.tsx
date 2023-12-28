@@ -39,6 +39,10 @@ function Gra() {
 		setWygranko('')
 	}
 
+	function backspace() {
+		setPróby(mutacjaListy(próby, numerPróby, próby[numerPróby].slice(0, -1)))
+	}
+
 	function czyMogęPrzełączyćTrybTrudny() {
 		if(wygranko != '') {
 			return false // zablokuj przełączanie po wygranej/przegranej
@@ -104,7 +108,7 @@ function Gra() {
 			dozwolone={dozwoloneLiterki}
 			klikLiterka={dopiszLiterkę}
 			klikEnter={() => console.log('enter')}
-			klikBackspace={() => console.log('backspace')}
+			klikBackspace={backspace}
 		/>
 	</div>
 }
