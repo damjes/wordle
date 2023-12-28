@@ -25,6 +25,7 @@ function Klawiatura(props: {
 			literka={literka}
 			klasa={ustalKlasę(literka, props.wypróbowane, props.rozwiązanie)}
 			klik={() => props.klikLiterka(literka)}
+			key={literka}
 		/>
 	)
 
@@ -34,11 +35,13 @@ function Klawiatura(props: {
 			literka="⮐"
 			klasa="enter"
 			klik={props.klikEnter}
+			key={'enter'}
 		/>
 		<Literka
 			literka="⌫"
 			klasa="backspace"
 			klik={props.klikBackspace}
+			key={'backspace'}
 		/>
 	</div>
 }
