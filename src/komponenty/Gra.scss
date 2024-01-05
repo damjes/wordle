@@ -28,3 +28,7 @@ $promien: 0.5em;
 		margin: 0.5em; // usunąć wraz z usunięciem debugowania (więcej niż 1 checkbox)
 	}
 }
+
+.gra:focus {
+        outline: none;
+}

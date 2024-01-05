@@ -171,7 +171,21 @@ function Gra() {
 		' jeszczeRaz'
 	)
 
-	return <div className="gra">
+	function klawiaturaKlik(e) {
+		if (e.key == "Enter") {
+			enter()
+		} else if (e.key == "Backspace") {
+			backspace()
+		} else {
+			dopiszLiterkę(e.key)
+		}
+	}
+
+	useEffect(() => {
+		document.getElementById("gra").focus()
+	}, [])
+
+	return <div id="gra" className="gra" tabIndex="0" onKeyDown={klawiaturaKlik}>
 		<Okienko
 			tytuł={tytułOkienka}
 			tekst={treśćOkienka}
