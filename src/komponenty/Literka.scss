@@ -46,14 +46,26 @@ $rozmiarKlawisza: 2rem;
 		&.wypustka {
 			text-decoration: underline;
 		}
+
+		&:hover {
+			background-color: lightgray;
+		}
 	}
 
 	&.enter {
 		background-color: green;
+
+		&:hover {
+			background-color: darkgreen;
+		}
 	}
 
 	&.backspace {
 		background-color: red;
+
+		&:hover {
+			background-color: darkred;
+		}
 	}
 
 	&.enter, &.backspace {
