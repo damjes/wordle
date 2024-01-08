@@ -42,7 +42,6 @@ $rozmiarKlawisza: 2rem;
 		width: $rozmiarKlawisza;
 		height: $rozmiarKlawisza;
 		font-size: 1.2rem;
-		flex-grow: 1;
 		&.wypustka {
 			text-decoration: underline;
 		}
@@ -70,6 +69,6 @@ $rozmiarKlawisza: 2rem;
 
 	&.enter, &.backspace {
 		color: white;
-		flex-grow: 2;
+		width: 3rem;
 	}
 }
