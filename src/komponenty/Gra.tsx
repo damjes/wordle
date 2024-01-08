@@ -171,7 +171,7 @@ function Gra() {
 		' jeszczeRaz'
 	)
 
-	function klawiaturaKlik(e) {
+	function klawiaturaKlik(e: React.KeyboardEvent<HTMLDivElement>) {
 		if (e.key == "Enter") {
 			enter()
 		} else if (e.key == "Backspace") {
@@ -182,10 +182,10 @@ function Gra() {
 	}
 
 	useEffect(() => {
-		document.getElementById("gra").focus()
+		document.getElementById("gra")!.focus()
 	}, [])
 
-	return <div id="gra" className="gra" tabIndex="0" onKeyDown={klawiaturaKlik}>
+	return <div id="gra" className="gra" tabIndex={0} onKeyDown={klawiaturaKlik}>
 		<Okienko
 			tytuł={tytułOkienka}
 			tekst={treśćOkienka}
