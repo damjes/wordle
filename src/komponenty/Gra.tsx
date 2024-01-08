@@ -13,8 +13,8 @@ function losowyElement<T>(tablica: T[]): T {
 	return tablica[indeks]
 }
 
-function mutacjaListy<T>(lista: T[], pozycja: number, nowyElement: T) {
-	return lista.map((element, indeks) => {
+function mutacjaListy<T>(pozycja: number, nowyElement: T) {
+	return (lista: Array<T>) => lista.map((element, indeks) => {
 		if(indeks == pozycja) {
 			return nowyElement
 		} else {
@@ -64,7 +64,7 @@ function Gra() {
 			return // zablokuj usuwanie po wygranej/przegranej
 		}
 		setPotwierdzeniePoddaniaSię(false)
-		setPróby(mutacjaListy(próby, numerPróby, próby[numerPróby].slice(0, -1)))
+		setPróby(mutacjaListy(numerPróby, próby[numerPróby].slice(0, -1)))
 	}
 
 	function enter() {
@@ -90,7 +90,7 @@ function Gra() {
 				setTytułOkienka('Ograniczenie trybu trudnego')
 				setTreśćOkienka('Nie ma takiego słowa.')
 				setTrigerOkienka(!trigerOkienka)
-				setPróby(mutacjaListy(próby, numerPróby, ''))
+				setPróby(mutacjaListy(numerPróby, ''))
 				return
 			}
 		}
@@ -144,7 +144,7 @@ function Gra() {
 
 		const bezOstatniej = próby[numerPróby].slice(0, długośćSłowa - 1)
 
-		setPróby(mutacjaListy(próby, numerPróby, bezOstatniej + literka))
+		setPróby(mutacjaListy(numerPróby, bezOstatniej + literka))
 	}
 
 	const słowa = próby.map((słowo, indeks) =>
