@@ -19,10 +19,19 @@ h1 {
 }
 
 footer {
-	margin-top: 2em;
+	margin-top: 3em;
 	text-align: center;
 	font-size: 0.8em;
 	color: gray;
+
+	&::before {
+		content: '';
+		background-color: lightgray;
+		display: block;
+		height: 1px;
+		width: 8em;
+		margin: 1em auto;
+	}
 
 	a:link, a:visited {
 		color: darkgray;
