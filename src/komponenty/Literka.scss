@@ -42,17 +42,22 @@ $rozmiarKlawisza: 2rem;
 		width: $rozmiarKlawisza;
 		height: $rozmiarKlawisza;
 		font-size: 1.2rem;
+		flex-grow: 1;
+		&.wypustka {
+			text-decoration: underline;
+		}
 	}
 
 	&.enter {
 		background-color: green;
-		color: white;
-		width: 2 * $rozmiarKlawisza;
 	}
 
 	&.backspace {
 		background-color: red;
+	}
+
+	&.enter, &.backspace {
 		color: white;
-		width: 2 * $rozmiarKlawisza;
+		flex-grow: 2;
 	}
 }

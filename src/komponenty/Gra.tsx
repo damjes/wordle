@@ -23,9 +23,16 @@ function mutacjaListy<T>(pozycja: number, nowyElement: T) {
 	})
 }
 
-function Gra() {
-	const dozwoloneLiterki = "aąbcćdeęfghijklłmnńoóprsśtuwyzźż".split('')
+const znakiKlawiatury = [
+	['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'],
+	['q', 'w', 'f', 'p', 'g', 'j', 'l', 'u', 'y'],
+	['a', 'r', 's', 't', 'd', 'h', 'n', 'e', 'i', 'o'],
+	['z', 'x', 'c', 'v', 'b', 'k', 'm'],
+]
 
+const dozwoloneLiterki = znakiKlawiatury.flat()
+
+function Gra() {
 	const [rozwiązanie, setRozwiązanie] = useState(losowyElement(listaSłów))
 	const długośćSłowa = rozwiązanie.length
 	const liczbaPrób = długośćSłowa + 1
@@ -234,7 +241,7 @@ function Gra() {
 		<Klawiatura
 			wypróbowane={wypróbowane}
 			rozwiązanie={rozwiązanie}
-			dozwolone={dozwoloneLiterki}
+			dozwolone={znakiKlawiatury}
 			klikLiterka={dopiszLiterkę}
 			klikEnter={enter}
 			klikBackspace={backspace}
