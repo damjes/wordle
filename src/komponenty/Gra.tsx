@@ -238,6 +238,16 @@ function Gra() {
 				/>
 			</div>
 		}
+		{
+			wygranko != '' &&
+			<div className="slownik">
+				Sprawdź rozwiązanie w
+				{' '}
+				<a href={'https://sjp.pl/' + rozwiązanie}>
+					słowniku SJP.PL
+				</a>
+			</div>
+		}
 		<Klawiatura
 			wypróbowane={wypróbowane}
 			rozwiązanie={rozwiązanie}
