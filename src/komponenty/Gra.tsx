@@ -6,7 +6,7 @@ import Słowo from './Slowo'
 
 import listaSłów from '../slownik'
 
-import './Gra.scss'
+import './Gra.sass'
 
 function losowyElement<T>(tablica: T[]): T {
 	const indeks = Math.floor(Math.random() * tablica.length)

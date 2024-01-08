@@ -1,4 +1,4 @@
-import './Literka.scss'
+import './Literka.sass'
 
 function Literka(
 	props: {

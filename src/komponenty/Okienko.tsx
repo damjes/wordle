@@ -1,4 +1,4 @@
-import './Okienko.scss'
+import './Okienko.sass'
 
 function Okienko(props: {
 	tytuł?: string,

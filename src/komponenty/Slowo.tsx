@@ -1,5 +1,5 @@
 import Literka from './Literka'
-import './Slowo.scss'
+import './Slowo.sass'
 
 function ustalKlasęWpisywane(słowo: string, indeks: number, długośćSłowa: number) {
 	const gdzieKursor = słowo.length - (długośćSłowa == słowo.length ? 1 : 0)

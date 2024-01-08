@@ -1,5 +1,5 @@
 import Literka from './Literka'
-import './Klawiatura.scss'
+import './Klawiatura.sass'
 
 function ustalKolorek(literka: string, wypróbowane: string, rozwiązanie: string) {
 	if(wypróbowane.includes(literka)) {
