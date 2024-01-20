@@ -180,6 +180,7 @@ function Gra() {
 
 	function klawiaturaKlik(e: React.KeyboardEvent<HTMLDivElement>) {
 		if (e.key == "Enter") {
+			e.preventDefault()
 			enter()
 		} else if (e.key == "Backspace") {
 			backspace()
