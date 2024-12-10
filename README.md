@@ -1,7 +1,12 @@
 # Wordle
 
 Reimplementacja [Wordle](https://www.nytimes.com/puzzles/wordle)
-w TypeScript + React + Vite.
+w
+[TypeScript](https://www.typescriptlang.org/)
++
+[React](https://react.dev/)
++
+[Vite](https://vite.dev/).
 
 Możesz zagrać [online](https://wordle.damj.es/).
 
