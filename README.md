@@ -19,6 +19,13 @@ npm install
 npm run dev
 ```
 
+Można też zbudować stronę statyczną:
+
+```bash
+npm install
+npm run build
+```
+
 ## Kreditsy
 
 - [Słownik](https://sjp.pl/sl/odmiany/)
