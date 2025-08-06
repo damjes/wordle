@@ -16,7 +16,29 @@ function ustalKlasęWcześniejsze(słowo: string, rozwiązanie: string, indeks: 
 	const literka = słowo[indeks]
 	if (literka == rozwiązanie[indeks]) {
 		return 'dobrze'
-	} else if (rozwiązanie.includes(literka)) {
+	}
+
+	let któraLiterka = 0
+
+	for(let i = 0; i <= indeks; i++) {
+		if(literka === słowo[i]) { // jeżeli szkukana literka
+			if(literka !== rozwiązanie[i]) { // ale na złym miejscu
+				któraLiterka++
+			}
+		}
+	}
+
+	let ileWZłymMiejscu = 0
+
+	for(let i = 0; i < rozwiązanie.length; i++) {
+		if(literka === rozwiązanie[i]) { // jeżeli szukana literka
+			if(literka !== słowo[i]) { // ale nie w rozwiązaniu
+				ileWZłymMiejscu++
+			}
+		}
+	}
+	
+	if (któraLiterka <= ileWZłymMiejscu) {
 		return 'przesunieta'
 	} else {
 		return 'zle'
