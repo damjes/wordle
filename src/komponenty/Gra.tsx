@@ -8,6 +8,12 @@ import listaSłów from '../slownik'
 
 import './Gra.sass'
 
+enum Wynik {
+  Wygranko,
+  Przegranko,
+  GraWToku,
+}
+
 function losowyElement<T>(tablica: T[]): T {
 	const indeks = Math.floor(Math.random() * tablica.length)
 	return tablica[indeks]
@@ -39,7 +45,7 @@ function Gra() {
 
 	const [próby, setPróby] = useState(Array(liczbaPrób).fill(''))
 	const [numerPróby, setNumerPróby] = useState(0)
-	const [wygranko, setWygranko] = useState('')
+	const [wygranko, setWygranko] = useState<Wynik>(Wynik.GraWToku)
 	const [trybTrudny, setTrybTrudny] = useState(false)
 	const [zmianaTrybuTrudnego, setZmianaTrybuTrudnego] = useState(true)
 	const [trybDebug, setTrybDebug] = useState(false)
@@ -61,13 +67,13 @@ function Gra() {
 		setRozwiązanie(losowyElement(listaSłów))
 		setPróby(Array(liczbaPrób).fill(''))
 		setNumerPróby(0)
-		setWygranko('')
+		setWygranko(Wynik.GraWToku)
 		setZmianaTrybuTrudnego(true)
 		setPotwierdzeniePoddaniaSię(false)
 	}
 
 	function backspace() {
-		if(wygranko != '') {
+		if(wygranko != Wynik.GraWToku) {
 			return // zablokuj usuwanie po wygranej/przegranej
 		}
 		setPotwierdzeniePoddaniaSię(false)
@@ -75,7 +81,7 @@ function Gra() {
 	}
 
 	function enter() {
-		if(wygranko != '') {
+		if(wygranko != Wynik.GraWToku) {
 			return // zablokuj enter po wygranej/przegranej
 		}
 
@@ -105,7 +111,7 @@ function Gra() {
 		const nowyNumerPróby = numerPróby + 1
 
 		if(bieżąceSłowo == rozwiązanie) {
-			setWygranko('tak')
+			setWygranko(Wynik.Wygranko)
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Wygranko')
 			setTreśćOkienka('Gratulacje! Udało Ci się odgadnąć słowo.')
@@ -114,7 +120,7 @@ function Gra() {
 		}
 
 		if(nowyNumerPróby == liczbaPrób) {
-			setWygranko('nie')
+			setWygranko(Wynik.Przegranko)
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Przegranko')
 			setTreśćOkienka('Niestety, nie udało Ci się odgadnąć słowa.')
@@ -134,7 +140,7 @@ function Gra() {
 
 	function dopiszLiterkę(literka: string) {
 		setPotwierdzeniePoddaniaSię(false)
-		if(wygranko != '') {
+		if(wygranko != Wynik.GraWToku) {
 			return // zablokuj wpisywanie po wygranej/przegranej
 		}
 		if(trybTrudny) {
@@ -156,7 +162,7 @@ function Gra() {
 
 	const słowa = próby.map((słowo, indeks) =>
 		<Słowo
-			etap={wygranko == '' ?
+			etap={wygranko == Wynik.GraWToku ?
 				(indeks == numerPróby ? 'teraz' : indeks < numerPróby ? 'po' : 'przed') :
 				'po'}
 			słowo={słowo}
@@ -165,15 +171,15 @@ function Gra() {
 		/>
 	)
 
-	const napisResetu = wygranko == '' ?
+	const napisResetu = wygranko == Wynik.GraWToku ?
 		(potwierdzeniePoddaniaSię ? 'Czy na pewno?' : 'Poddaj się') :
 		'Zagraj jeszcze raz'
 
-	const funkcjaResetu = wygranko == '' ?
-		(potwierdzeniePoddaniaSię ? () => setWygranko('nie') : () => setPotwierdzeniePoddaniaSię(true)) :
+	const funkcjaResetu = wygranko == Wynik.GraWToku ?
+		(potwierdzeniePoddaniaSię ? () => setWygranko(Wynik.Przegranko) : () => setPotwierdzeniePoddaniaSię(true)) :
 		resetuj
 
-	const klasaResetu = 'przyciskResetu' + (wygranko == '' ?
+	const klasaResetu = 'przyciskResetu' + (wygranko == Wynik.GraWToku ?
 		(potwierdzeniePoddaniaSię ? ' naPewno' : '') :
 		' jeszczeRaz'
 	)
@@ -229,7 +235,7 @@ function Gra() {
 		</p>
 		<button className={klasaResetu} onClick={funkcjaResetu}>{napisResetu}</button>
 		{
-			wygranko == 'nie' &&
+			wygranko == Wynik.Przegranko &&
 			<div className="opisRozwiazania">
 				<p>Rozwiązanie to:</p>
 				<Słowo
@@ -240,7 +246,7 @@ function Gra() {
 			</div>
 		}
 		{
-			wygranko != '' &&
+			wygranko != Wynik.GraWToku &&
 			<div className="slownik">
 				Sprawdź rozwiązanie w
 				{' '}
