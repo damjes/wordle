@@ -1,9 +1,13 @@
 import Literka from './Literka'
 import './Klawiatura.sass'
 
-function ustalKolorek(literka: string, wypróbowane: string, rozwiązanie: string) {
-	if(wypróbowane.includes(literka)) {
-		if(rozwiązanie.includes(literka)) {
+function ustalKolorek(
+	literka: string,
+	wypróbowane: string,
+	rozwiązanie: string
+) {
+	if (wypróbowane.includes(literka)) {
+		if (rozwiązanie.includes(literka)) {
 			return 'dobrze'
 		}
 		return 'zle'
@@ -13,7 +17,7 @@ function ustalKolorek(literka: string, wypróbowane: string, rozwiązanie: strin
 }
 
 function ustalWypustkę(literka: string) {
-	if(literka == 't' || literka == 'n') {
+	if (literka == 't' || literka == 'n') {
 		return ' wypustka'
 	} else {
 		return ''
@@ -21,54 +25,58 @@ function ustalWypustkę(literka: string) {
 }
 
 function ustalKlasę(literka: string, wypróbowane: string, rozwiązanie: string) {
-	return ustalKolorek(literka, wypróbowane, rozwiązanie) + ustalWypustkę(literka)
+	return (
+		ustalKolorek(literka, wypróbowane, rozwiązanie) + ustalWypustkę(literka)
+	)
 }
 
 function Klawiatura(props: {
-	wypróbowane: string,
-	rozwiązanie: string,
-	dozwolone: string[][],
-	klikLiterka: (literka: string) => void,
-	klikEnter: () => void,
-	klikBackspace: () => void,
+	wypróbowane: string
+	rozwiązanie: string
+	dozwolone: string[][]
+	klikLiterka: (literka: string) => void
+	klikEnter: () => void
+	klikBackspace: () => void
 }) {
 	function dajZawartoscWiersza(wiersz: string[]) {
-		return wiersz.map(literka =>
+		return wiersz.map((literka) => (
 			<Literka
 				literka={literka}
-				klasa={'klawisz ' + ustalKlasę(literka, props.wypróbowane, props.rozwiązanie)}
+				klasa={
+					'klawisz ' +
+					ustalKlasę(literka, props.wypróbowane, props.rozwiązanie)
+				}
 				klik={() => props.klikLiterka(literka)}
 				key={literka}
 			/>
-		)
+		))
 	}
 
-	const znakiSterujące = <>
-		<Literka
-			literka="⮐"
-			klasa="klawisz enter"
-			klik={props.klikEnter}
-			key={'enter'}
-		/>
-		<Literka
-			literka="⌫"
-			klasa="klawisz backspace"
-			klik={props.klikBackspace}
-			key={'backspace'}
-		/>
-	</>
+	const znakiSterujące = (
+		<>
+			<Literka
+				literka="⮐"
+				klasa="klawisz enter"
+				klik={props.klikEnter}
+				key={'enter'}
+			/>
+			<Literka
+				literka="⌫"
+				klasa="klawisz backspace"
+				klik={props.klikBackspace}
+				key={'backspace'}
+			/>
+		</>
+	)
 
-	const literki = props.dozwolone.map((wiersz, indeks) =>
+	const literki = props.dozwolone.map((wiersz, indeks) => (
 		<div className="wiersz" key={indeks}>
 			{dajZawartoscWiersza(wiersz)}
 			{indeks == props.dozwolone.length - 1 && znakiSterujące}
 		</div>
-	)
+	))
 
-	return <div className="klawiatura">
-		{literki}
-
-	</div>
+	return <div className="klawiatura">{literki}</div>
 }
 
 export default Klawiatura

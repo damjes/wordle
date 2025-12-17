@@ -1,7 +1,11 @@
 import Literka from './Literka'
 import './Slowo.sass'
 
-function ustalKlasęWpisywane(słowo: string, indeks: number, długośćSłowa: number) {
+function ustalKlasęWpisywane(
+	słowo: string,
+	indeks: number,
+	długośćSłowa: number
+) {
 	const gdzieKursor = słowo.length - (długośćSłowa == słowo.length ? 1 : 0)
 	// odejmij jeden jeśli na końcu słow
 	// NB: słowo.length to indeks pierwszej wolnej komórki za słowem
@@ -12,7 +16,11 @@ function ustalKlasęWpisywane(słowo: string, indeks: number, długośćSłowa: 
 	}
 }
 
-function ustalKlasęWcześniejsze(słowo: string, rozwiązanie: string, indeks: number) {
+function ustalKlasęWcześniejsze(
+	słowo: string,
+	rozwiązanie: string,
+	indeks: number
+) {
 	const literka = słowo[indeks]
 	if (literka == rozwiązanie[indeks]) {
 		return 'dobrze'
@@ -20,9 +28,11 @@ function ustalKlasęWcześniejsze(słowo: string, rozwiązanie: string, indeks: 
 
 	let któraLiterka = 0
 
-	for(let i = 0; i <= indeks; i++) {
-		if(literka === słowo[i]) { // jeżeli szkukana literka
-			if(literka !== rozwiązanie[i]) { // ale na złym miejscu
+	for (let i = 0; i <= indeks; i++) {
+		if (literka === słowo[i]) {
+			// jeżeli szkukana literka
+			if (literka !== rozwiązanie[i]) {
+				// ale na złym miejscu
 				któraLiterka++
 			}
 		}
@@ -30,14 +40,16 @@ function ustalKlasęWcześniejsze(słowo: string, rozwiązanie: string, indeks: 
 
 	let ileWZłymMiejscu = 0
 
-	for(let i = 0; i < rozwiązanie.length; i++) {
-		if(literka === rozwiązanie[i]) { // jeżeli szukana literka
-			if(literka !== słowo[i]) { // ale nie w rozwiązaniu
+	for (let i = 0; i < rozwiązanie.length; i++) {
+		if (literka === rozwiązanie[i]) {
+			// jeżeli szukana literka
+			if (literka !== słowo[i]) {
+				// ale nie w rozwiązaniu
 				ileWZłymMiejscu++
 			}
 		}
 	}
-	
+
 	if (któraLiterka <= ileWZłymMiejscu) {
 		return 'przesunieta'
 	} else {
@@ -45,7 +57,12 @@ function ustalKlasęWcześniejsze(słowo: string, rozwiązanie: string, indeks: 
 	}
 }
 
-function ustalKlasę(etap: string, słowo: string, rozwiązanie: string, indeks: number) {
+function ustalKlasę(
+	etap: string,
+	słowo: string,
+	rozwiązanie: string,
+	indeks: number
+) {
 	if (etap == 'przed') {
 		return 'nieznana'
 	}
@@ -57,32 +74,22 @@ function ustalKlasę(etap: string, słowo: string, rozwiązanie: string, indeks:
 	return ustalKlasęWcześniejsze(słowo, rozwiązanie, indeks)
 }
 
-function Słowo(
-	props: {
-		etap: string,
-		słowo?: string,
-		rozwiązanie: string
-	}
-) {
+function Słowo(props: { etap: string; słowo?: string; rozwiązanie: string }) {
 	const słowo = props.słowo || ''
 	const długośćSłowa = props.rozwiązanie.length
 
-	const literki = słowo.padEnd(długośćSłowa, ' ').split('').map(
-		(literka, indeks) => <Literka
-			literka={literka}
-			klasa={ustalKlasę(
-				props.etap,
-				słowo,
-				props.rozwiązanie,
-				indeks
-			)}
-			key={indeks}
-		/>
-	)
+	const literki = słowo
+		.padEnd(długośćSłowa, ' ')
+		.split('')
+		.map((literka, indeks) => (
+			<Literka
+				literka={literka}
+				klasa={ustalKlasę(props.etap, słowo, props.rozwiązanie, indeks)}
+				key={indeks}
+			/>
+		))
 
-	return <div className="slowo">
-		{literki}
-	</div>
+	return <div className="slowo">{literki}</div>
 }
 
 export default Słowo

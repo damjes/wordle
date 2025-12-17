@@ -9,9 +9,9 @@ import listaSłów from '../slownik'
 import './Gra.sass'
 
 enum Wynik {
-  Wygranko,
-  Przegranko,
-  GraWToku,
+	Wygranko,
+	Przegranko,
+	GraWToku,
 }
 
 function losowyElement<T>(tablica: T[]): T {
@@ -20,13 +20,14 @@ function losowyElement<T>(tablica: T[]): T {
 }
 
 function mutacjaListy<T>(pozycja: number, nowyElement: T) {
-	return (lista: Array<T>) => lista.map((element, indeks) => {
-		if(indeks == pozycja) {
-			return nowyElement
-		} else {
-			return element
-		}
-	})
+	return (lista: Array<T>) =>
+		lista.map((element, indeks) => {
+			if (indeks == pozycja) {
+				return nowyElement
+			} else {
+				return element
+			}
+		})
 }
 
 const znakiKlawiatury = [
@@ -49,7 +50,8 @@ function Gra() {
 	const [trybTrudny, setTrybTrudny] = useState(false)
 	const [zmianaTrybuTrudnego, setZmianaTrybuTrudnego] = useState(true)
 	const [trybDebug, setTrybDebug] = useState(false)
-	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] = useState(false)
+	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] =
+		useState(false)
 	const [treśćOkienka, setTreśćOkienka] = useState('')
 	const [tytułOkienka, setTytułOkienka] = useState('')
 	const [trigerOkienka, setTrigerOkienka] = useState(false)
@@ -59,9 +61,10 @@ function Gra() {
 	const wypróbowane: string = próby.slice(0, numerPróby).join('')
 
 	useEffect(() => {
-		if(treśćOkienka != '') {
+		if (treśćOkienka != '') {
 			okienko.current?.showModal()
-		}}, [trigerOkienka])
+		}
+	}, [trigerOkienka])
 
 	function resetuj() {
 		setRozwiązanie(losowyElement(listaSłów))
@@ -73,7 +76,7 @@ function Gra() {
 	}
 
 	function backspace() {
-		if(wygranko != Wynik.GraWToku) {
+		if (wygranko != Wynik.GraWToku) {
 			return // zablokuj usuwanie po wygranej/przegranej
 		}
 		setPotwierdzeniePoddaniaSię(false)
@@ -81,7 +84,7 @@ function Gra() {
 	}
 
 	function enter() {
-		if(wygranko != Wynik.GraWToku) {
+		if (wygranko != Wynik.GraWToku) {
 			return // zablokuj enter po wygranej/przegranej
 		}
 
@@ -89,7 +92,7 @@ function Gra() {
 
 		const bieżąceSłowo = próby[numerPróby]
 
-		if(bieżąceSłowo.length != długośćSłowa) {
+		if (bieżąceSłowo.length != długośćSłowa) {
 			setTytułOkienka('Niewpisane słowo')
 			setTreśćOkienka('Słowo jest za krótkie. Wpisz całe słowo.')
 			setTrigerOkienka(!trigerOkienka)
@@ -98,8 +101,8 @@ function Gra() {
 
 		setZmianaTrybuTrudnego(false)
 
-		if(trybTrudny) {
-			if(!listaSłów.includes(bieżąceSłowo)) {
+		if (trybTrudny) {
+			if (!listaSłów.includes(bieżąceSłowo)) {
 				setTytułOkienka('Ograniczenie trybu trudnego')
 				setTreśćOkienka('Nie ma takiego słowa.')
 				setTrigerOkienka(!trigerOkienka)
@@ -110,7 +113,7 @@ function Gra() {
 
 		const nowyNumerPróby = numerPróby + 1
 
-		if(bieżąceSłowo == rozwiązanie) {
+		if (bieżąceSłowo == rozwiązanie) {
 			setWygranko(Wynik.Wygranko)
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Wygranko')
@@ -119,7 +122,7 @@ function Gra() {
 			return
 		}
 
-		if(nowyNumerPróby == liczbaPrób) {
+		if (nowyNumerPróby == liczbaPrób) {
 			setWygranko(Wynik.Przegranko)
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Przegranko')
@@ -133,25 +136,30 @@ function Gra() {
 
 	function przełączTrybTrudny() {
 		setPotwierdzeniePoddaniaSię(false)
-		if(zmianaTrybuTrudnego) {
+		if (zmianaTrybuTrudnego) {
 			setTrybTrudny(!trybTrudny)
 		}
 	}
 
 	function dopiszLiterkę(literka: string) {
 		setPotwierdzeniePoddaniaSię(false)
-		if(wygranko != Wynik.GraWToku) {
+		if (wygranko != Wynik.GraWToku) {
 			return // zablokuj wpisywanie po wygranej/przegranej
 		}
-		if(trybTrudny) {
-			if(wypróbowane.includes(literka) && !rozwiązanie.includes(literka)) {
+		if (trybTrudny) {
+			if (
+				wypróbowane.includes(literka) &&
+				!rozwiązanie.includes(literka)
+			) {
 				setTytułOkienka('Ograniczenie trybu trudnego')
-				setTreśćOkienka('Nie można wpisać tej litery, bo jest niepoprawna.')
+				setTreśćOkienka(
+					'Nie można wpisać tej litery, bo jest niepoprawna.'
+				)
 				setTrigerOkienka(!trigerOkienka)
 				return // zablokuj ponowne wpisywanie tej samej błędnej literki
 			}
 		}
-		if(!dozwoloneLiterki.includes(literka)) {
+		if (!dozwoloneLiterki.includes(literka)) {
 			return // zablokuj wpisywanie niedozwolonych liter
 		}
 
@@ -160,35 +168,50 @@ function Gra() {
 		setPróby(mutacjaListy(numerPróby, bezOstatniej + literka))
 	}
 
-	const słowa = próby.map((słowo, indeks) =>
+	const słowa = próby.map((słowo, indeks) => (
 		<Słowo
-			etap={wygranko == Wynik.GraWToku ?
-				(indeks == numerPróby ? 'teraz' : indeks < numerPróby ? 'po' : 'przed') :
-				'po'}
+			etap={
+				wygranko == Wynik.GraWToku
+					? indeks == numerPróby
+						? 'teraz'
+						: indeks < numerPróby
+						? 'po'
+						: 'przed'
+					: 'po'
+			}
 			słowo={słowo}
 			rozwiązanie={rozwiązanie}
 			key={indeks}
 		/>
-	)
+	))
 
-	const napisResetu = wygranko == Wynik.GraWToku ?
-		(potwierdzeniePoddaniaSię ? 'Czy na pewno?' : 'Poddaj się') :
-		'Zagraj jeszcze raz'
+	const napisResetu =
+		wygranko == Wynik.GraWToku
+			? potwierdzeniePoddaniaSię
+				? 'Czy na pewno?'
+				: 'Poddaj się'
+			: 'Zagraj jeszcze raz'
 
-	const funkcjaResetu = wygranko == Wynik.GraWToku ?
-		(potwierdzeniePoddaniaSię ? () => setWygranko(Wynik.Przegranko) : () => setPotwierdzeniePoddaniaSię(true)) :
-		resetuj
+	const funkcjaResetu =
+		wygranko == Wynik.GraWToku
+			? potwierdzeniePoddaniaSię
+				? () => setWygranko(Wynik.Przegranko)
+				: () => setPotwierdzeniePoddaniaSię(true)
+			: resetuj
 
-	const klasaResetu = 'przyciskResetu' + (wygranko == Wynik.GraWToku ?
-		(potwierdzeniePoddaniaSię ? ' naPewno' : '') :
-		' jeszczeRaz'
-	)
+	const klasaResetu =
+		'przyciskResetu' +
+		(wygranko == Wynik.GraWToku
+			? potwierdzeniePoddaniaSię
+				? ' naPewno'
+				: ''
+			: ' jeszczeRaz')
 
 	function klawiaturaKlik(e: React.KeyboardEvent<HTMLDivElement>) {
-		if (e.key == "Enter") {
+		if (e.key == 'Enter') {
 			e.preventDefault()
 			enter()
-		} else if (e.key == "Backspace") {
+		} else if (e.key == 'Backspace') {
 			backspace()
 		} else {
 			dopiszLiterkę(e.key)
@@ -196,74 +219,84 @@ function Gra() {
 	}
 
 	useEffect(() => {
-		document.getElementById("gra")!.focus()
+		document.getElementById('gra')!.focus()
 	}, [])
 
-	return <div id="gra" className="gra" tabIndex={0} onKeyDown={klawiaturaKlik}>
-		<Okienko
-			tytuł={tytułOkienka}
-			tekst={treśćOkienka}
-			refOkienka={okienko} />
-		<div className="macierz">
-			{słowa}
+	return (
+		<div id="gra" className="gra" tabIndex={0} onKeyDown={klawiaturaKlik}>
+			<Okienko
+				tytuł={tytułOkienka}
+				tekst={treśćOkienka}
+				refOkienka={okienko}
+			/>
+			<div className="macierz">{słowa}</div>
+			{trybDebug && (
+				<>
+					<p>rozwiązanie: "{rozwiązanie}"</p>
+					<p>wygranko: "{wygranko}"</p>
+					<p>wypróbowane: "{wypróbowane}"</p>
+					<p>
+						<button onClick={() => setNumerPróby(numerPróby - 1)}>
+							-
+						</button>
+						<button onClick={() => setNumerPróby(numerPróby + 1)}>
+							+
+						</button>
+					</p>
+				</>
+			)}
+			<p className="wlacznikTrybuTrudnego">
+				<label>
+					<input
+						type="checkbox"
+						checked={trybTrudny}
+						disabled={!zmianaTrybuTrudnego}
+						onChange={przełączTrybTrudny}
+					/>
+					tryb trudny
+				</label>
+				<label>
+					<input
+						type="checkbox"
+						checked={trybDebug}
+						onChange={() => {
+							setTrybDebug(!trybDebug)
+						}}
+					/>
+					tryb oszusta (debug)
+				</label>
+			</p>
+			<button className={klasaResetu} onClick={funkcjaResetu}>
+				{napisResetu}
+			</button>
+			{wygranko == Wynik.Przegranko && (
+				<div className="opisRozwiazania">
+					<p>Rozwiązanie to:</p>
+					<Słowo
+						etap="po"
+						słowo={rozwiązanie}
+						rozwiązanie={rozwiązanie}
+					/>
+				</div>
+			)}
+			{wygranko != Wynik.GraWToku && (
+				<div className="slownik">
+					Sprawdź rozwiązanie w{' '}
+					<a href={'https://sjp.pl/' + rozwiązanie}>
+						słowniku SJP.PL
+					</a>
+				</div>
+			)}
+			<Klawiatura
+				wypróbowane={wypróbowane}
+				rozwiązanie={rozwiązanie}
+				dozwolone={znakiKlawiatury}
+				klikLiterka={dopiszLiterkę}
+				klikEnter={enter}
+				klikBackspace={backspace}
+			/>
 		</div>
-		{
-			trybDebug &&
-			<>
-				<p>rozwiązanie: "{rozwiązanie}"</p>
-				<p>wygranko: "{wygranko}"</p>
-				<p>wypróbowane: "{wypróbowane}"</p>
-				<p>
-					<button onClick={() => setNumerPróby(numerPróby-1)}>-</button>
-					<button onClick={() => setNumerPróby(numerPróby+1)}>+</button>
-				</p>
-			</>
-		}
-		<p className="wlacznikTrybuTrudnego">
-			<label>
-				<input
-					type="checkbox"
-					checked={trybTrudny}
-					disabled={!zmianaTrybuTrudnego}
-					onChange={przełączTrybTrudny} />
-				tryb trudny
-			</label>
-			<label>
-				<input type="checkbox" checked={trybDebug} onChange={() => {setTrybDebug(!trybDebug)}} />
-				tryb oszusta (debug)
-			</label>
-		</p>
-		<button className={klasaResetu} onClick={funkcjaResetu}>{napisResetu}</button>
-		{
-			wygranko == Wynik.Przegranko &&
-			<div className="opisRozwiazania">
-				<p>Rozwiązanie to:</p>
-				<Słowo
-					etap='po'
-					słowo={rozwiązanie}
-					rozwiązanie={rozwiązanie}
-				/>
-			</div>
-		}
-		{
-			wygranko != Wynik.GraWToku &&
-			<div className="slownik">
-				Sprawdź rozwiązanie w
-				{' '}
-				<a href={'https://sjp.pl/' + rozwiązanie}>
-					słowniku SJP.PL
-				</a>
-			</div>
-		}
-		<Klawiatura
-			wypróbowane={wypróbowane}
-			rozwiązanie={rozwiązanie}
-			dozwolone={znakiKlawiatury}
-			klikLiterka={dopiszLiterkę}
-			klikEnter={enter}
-			klikBackspace={backspace}
-		/>
-	</div>
+	)
 }
 
 export default Gra

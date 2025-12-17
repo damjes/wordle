@@ -3,10 +3,9 @@
 Reimplementacja [Wordle](https://www.nytimes.com/puzzles/wordle)
 w
 [TypeScript](https://www.typescriptlang.org/)
-+
-[React](https://react.dev/)
-+
-[Vite](https://vite.dev/).
+
+-   [React](https://react.dev/)
+-   [Vite](https://vite.dev/).
 
 Możesz zagrać [online](https://wordle.damj.es/).
 
@@ -28,6 +27,6 @@ npm run build
 
 ## Kreditsy
 
-- [Słownik](https://sjp.pl/sl/odmiany/)
-- [Favicon.io](https://favicon.io/favicon-generator/)
-- [GitHub Corner](https://tholman.com/github-corners/) ([GitHub](https://github.com/tholman/github-corners))
+-   [Słownik](https://sjp.pl/sl/odmiany/)
+-   [Favicon.io](https://favicon.io/favicon-generator/)
+-   [GitHub Corner](https://tholman.com/github-corners/) ([GitHub](https://github.com/tholman/github-corners))
