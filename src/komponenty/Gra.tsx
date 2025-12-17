@@ -236,10 +236,16 @@ function Gra() {
 					<p>wygranko: "{wygranko}"</p>
 					<p>wypróbowane: "{wypróbowane}"</p>
 					<p>
-						<button onClick={() => setNumerPróby(numerPróby - 1)}>
+						<button
+							onClick={() => setNumerPróby(numerPróby - 1)}
+							disabled={numerPróby === 0}
+						>
 							-
 						</button>
-						<button onClick={() => setNumerPróby(numerPróby + 1)}>
+						<button
+							onClick={() => setNumerPróby(numerPróby + 1)}
+							disabled={numerPróby === liczbaPrób - 1}
+						>
 							+
 						</button>
 					</p>
