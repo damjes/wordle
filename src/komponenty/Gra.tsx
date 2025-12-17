@@ -42,7 +42,7 @@ const dozwoloneLiterki = znakiKlawiatury.flat()
 function Gra() {
 	const [rozwiązanie, setRozwiązanie] = useState(losowyElement(listaSłów))
 	const długośćSłowa = rozwiązanie.length
-	const liczbaPrób = długośćSłowa + 1
+	const liczbaPrób = 6
 
 	const [próby, setPróby] = useState(Array(liczbaPrób).fill(''))
 	const [numerPróby, setNumerPróby] = useState(0)
