@@ -9,7 +9,7 @@ Reimplementacja [Wordle](https://www.nytimes.com/puzzles/wordle) na licencji [Da
 Możesz zagrać online na:
 
 -   [GitHub Pages](https://wordle.damj.es/),
--   [Vercelu](https://vercel.wordle.damj.es/)
+-   [Vercelu](https://vercel.wordle.damj.es/).
 
 ## Uruchomienie
 
