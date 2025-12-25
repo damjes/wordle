@@ -1,4 +1,5 @@
 import './Literka.sass'
+import './ciemny.sass'
 
 function Literka(props: {
 	literka?: string

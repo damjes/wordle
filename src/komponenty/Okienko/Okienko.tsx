@@ -1,4 +1,5 @@
 import './Okienko.sass'
+import './ciemny.sass'
 
 function Okienko(props: {
 	tytuł?: string

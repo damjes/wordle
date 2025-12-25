@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { use, useEffect, useRef, useState } from 'react'
 
 import Klawiatura from '../Klawiatura/Klawiatura'
 import Okienko from '../Okienko/Okienko'
@@ -7,6 +7,7 @@ import Słowo from '../Slowo/Slowo'
 import listaSłów from '../../slownik'
 
 import './Gra.sass'
+import './ciemny.sass'
 
 enum Wynik {
 	Wygranko,
@@ -30,6 +31,13 @@ function mutacjaListy<T>(pozycja: number, nowyElement: T) {
 		})
 }
 
+function czySystemowyTrybCiemny() {
+	return (
+		window.matchMedia &&
+		window.matchMedia('(prefers-color-scheme: dark)').matches
+	)
+}
+
 const znakiKlawiatury = [
 	['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'],
 	['q', 'w', 'f', 'p', 'g', 'j', 'l', 'u', 'y'],
@@ -50,6 +58,7 @@ function Gra() {
 	const [trybTrudny, setTrybTrudny] = useState(false)
 	const [zmianaTrybuTrudnego, setZmianaTrybuTrudnego] = useState(true)
 	const [trybDebug, setTrybDebug] = useState(false)
+	const [trybCiemny, setTrybCiemny] = useState(czySystemowyTrybCiemny())
 	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] =
 		useState(false)
 	const [treśćOkienka, setTreśćOkienka] = useState('')
@@ -59,6 +68,10 @@ function Gra() {
 	const okienko = useRef<HTMLDialogElement>(null)
 
 	const wypróbowane: string = próby.slice(0, numerPróby).join('')
+
+	useEffect(() => {
+		document.documentElement.classList.toggle('ciemny', trybCiemny)
+	}, [trybCiemny])
 
 	useEffect(() => {
 		if (treśćOkienka != '') {
@@ -270,6 +283,16 @@ function Gra() {
 						}}
 					/>
 					tryb oszusta (debug)
+				</label>
+				<label>
+					<input
+						type="checkbox"
+						checked={trybCiemny}
+						onChange={() => {
+							setTrybCiemny(!trybCiemny)
+						}}
+					/>
+					tryb ciemny
 				</label>
 			</p>
 			<button className={klasaResetu} onClick={funkcjaResetu}>
