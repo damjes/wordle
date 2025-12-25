@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-import Klawiatura from './Klawiatura'
-import Okienko from './Okienko'
-import Słowo from './Slowo'
+import Klawiatura from '../Klawiatura/Klawiatura'
+import Okienko from '../Okienko/Okienko'
+import Słowo from '../Slowo/Slowo'
 
-import listaSłów from '../slownik'
+import listaSłów from '../../slownik'
 
 import './Gra.sass'
 

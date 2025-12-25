@@ -1,4 +1,4 @@
-import Gra from './komponenty/Gra'
+import Gra from './komponenty/Gra/Gra'
 
 function App() {
 	return (

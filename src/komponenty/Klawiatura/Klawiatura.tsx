@@ -1,4 +1,4 @@
-import Literka from './Literka'
+import Literka from '../Literka/Literka'
 import './Klawiatura.sass'
 
 function ustalKolorek(
