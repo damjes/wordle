@@ -20,6 +20,21 @@ function losowyElement<T>(tablica: T[]): T {
 	return tablica[indeks]
 }
 
+/*
+funkcja zmienia n-ty element listy na nowyElement
+
+sygnatura: (number, T) => (Array<T>) => Array<T>
+NB, że zwraca funkcję typu (Array<T>) => Array<T>
+(potocznie nazywam ją zmieniarką)
+
+użyto curryingu, żeby łatwiej było używać w setState
+eg. setLista(mutacjaListy(2, 'nowa wartość'))
+
+bez curryingu funkcja miałaby sygnaturę: (number, T, Array<T>) => Array<T>
+ale wtedy w setState trzeba by było pisać:
+setLista((staraLista) => mutacjaListy(2, 'nowa wartość', staraLista))
+*/
+
 function mutacjaListy<T>(pozycja: number, nowyElement: T) {
 	return (lista: Array<T>) =>
 		lista.map((element, indeks) => {
@@ -38,6 +53,9 @@ function czySystemowyTrybCiemny() {
 	)
 }
 
+// klawisze w kolejności odpowiadającej układowi klawiatury
+// oczywiście chodzi o układ Colemaka :) (patrz: colemak.com)
+
 const znakiKlawiatury = [
 	['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'],
 	['q', 'w', 'f', 'p', 'g', 'j', 'l', 'u', 'y'],
@@ -54,25 +72,46 @@ function Gra() {
 
 	const [próby, setPróby] = useState(Array(liczbaPrób).fill(''))
 	const [numerPróby, setNumerPróby] = useState(0)
+
 	const [wygranko, setWygranko] = useState<Wynik>(Wynik.GraWToku)
-	const [trybTrudny, setTrybTrudny] = useState(false)
-	const [zmianaTrybuTrudnego, setZmianaTrybuTrudnego] = useState(true)
+
+	const [trybTrudny, setTrybTrudny] = useState(false) // jaki tryb jest ustawiony
+	const [zmianaTrybuTrudnego, setZmianaTrybuTrudnego] = useState(true) // i czy można go zmienić
+	// (trybu nie można zmienić w trakcie gry)
+
 	const [trybDebug, setTrybDebug] = useState(false)
+
 	const [trybCiemny, setTrybCiemny] = useState(czySystemowyTrybCiemny())
+
+	// poddanie się wymaga potwierdzenia
+	// po pierwszym kliknięciu przycisku przycisk się zmienia w potwierdzenie
+	// kliknięcie gdziekolwiek indziej anuluje potwierdzenie
 	const [potwierdzeniePoddaniaSię, setPotwierdzeniePoddaniaSię] =
 		useState(false)
+
 	const [treśćOkienka, setTreśćOkienka] = useState('')
 	const [tytułOkienka, setTytułOkienka] = useState('')
-	const [trigerOkienka, setTrigerOkienka] = useState(false)
+	const [trigerOkienka, setTrigerOkienka] = useState(false) // patrz useEffect z trigerOkienka
 
 	const okienko = useRef<HTMLDialogElement>(null)
 
 	const wypróbowane: string = próby.slice(0, numerPróby).join('')
 
+	// włączamy lub wyłączamy klasę ciemny na elemencie <html>
+	// NB na drugi parametr toggla! :)
+	// https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/toggle#force
 	useEffect(() => {
 		document.documentElement.classList.toggle('ciemny', trybCiemny)
 	}, [trybCiemny])
 
+	/*
+	okienka modalne działają w oparciu o API dialogów
+	https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement
+	musimy jakoś wywołać showModal() na elemencie dialogu
+	pomysł jest prosty: zanegować trigerOkienka za każdym razem,
+	gdy chcemy pokazać okienko, a potem w useEffect z trigerOkienka
+	wywołać showModal() na elemencie dialogu
+	*/
 	useEffect(() => {
 		if (treśćOkienka != '') {
 			okienko.current?.showModal()
@@ -81,19 +120,19 @@ function Gra() {
 
 	function resetuj() {
 		setRozwiązanie(losowyElement(listaSłów))
-		setPróby(Array(liczbaPrób).fill(''))
+		setPróby(Array(liczbaPrób).fill('')) // próby wyświetlamy mapem, więc potrzebujemy listy pustych prób
 		setNumerPróby(0)
 		setWygranko(Wynik.GraWToku)
 		setZmianaTrybuTrudnego(true)
-		setPotwierdzeniePoddaniaSię(false)
+		setPotwierdzeniePoddaniaSię(false) // resetowanie trwającego poddania się
 	}
 
 	function backspace() {
 		if (wygranko != Wynik.GraWToku) {
 			return // zablokuj usuwanie po wygranej/przegranej
 		}
-		setPotwierdzeniePoddaniaSię(false)
-		setPróby(mutacjaListy(numerPróby, próby[numerPróby].slice(0, -1)))
+		setPotwierdzeniePoddaniaSię(false) // anuluj trwające poddanie się
+		setPróby(mutacjaListy(numerPróby, próby[numerPróby].slice(0, -1))) // usuń ostatnią literkę
 	}
 
 	function enter() {
@@ -101,7 +140,7 @@ function Gra() {
 			return // zablokuj enter po wygranej/przegranej
 		}
 
-		setPotwierdzeniePoddaniaSię(false)
+		setPotwierdzeniePoddaniaSię(false) // anuluj trwające poddanie się
 
 		const bieżąceSłowo = próby[numerPróby]
 
@@ -112,19 +151,19 @@ function Gra() {
 			return
 		}
 
-		setZmianaTrybuTrudnego(false)
+		setZmianaTrybuTrudnego(false) // po pierwszym enterze nie można już zmienić trybu trudnego
 
 		if (trybTrudny) {
 			if (!listaSłów.includes(bieżąceSłowo)) {
 				setTytułOkienka('Ograniczenie trybu trudnego')
 				setTreśćOkienka('Nie ma takiego słowa.')
 				setTrigerOkienka(!trigerOkienka)
-				setPróby(mutacjaListy(numerPróby, ''))
-				return
+				setPróby(mutacjaListy(numerPróby, '')) // anuluj próbę
+				return // i przerwij dalsze przetwarzanie
 			}
 		}
 
-		const nowyNumerPróby = numerPróby + 1
+		const nowyNumerPróby = numerPróby + 1 // przyda się numer kolejnej próby
 
 		if (bieżąceSłowo == rozwiązanie) {
 			setWygranko(Wynik.Wygranko)
@@ -136,6 +175,7 @@ function Gra() {
 		}
 
 		if (nowyNumerPróby == liczbaPrób) {
+			// ...o tu się przyda
 			setWygranko(Wynik.Przegranko)
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Przegranko')
@@ -148,14 +188,14 @@ function Gra() {
 	}
 
 	function przełączTrybTrudny() {
-		setPotwierdzeniePoddaniaSię(false)
+		setPotwierdzeniePoddaniaSię(false) // anuluj trwające poddanie się
 		if (zmianaTrybuTrudnego) {
 			setTrybTrudny(!trybTrudny)
 		}
 	}
 
 	function dopiszLiterkę(literka: string) {
-		setPotwierdzeniePoddaniaSię(false)
+		setPotwierdzeniePoddaniaSię(false) // anuluj trwające poddanie się
 		if (wygranko != Wynik.GraWToku) {
 			return // zablokuj wpisywanie po wygranej/przegranej
 		}
@@ -176,7 +216,9 @@ function Gra() {
 			return // zablokuj wpisywanie niedozwolonych liter
 		}
 
-		const bezOstatniej = próby[numerPróby].slice(0, długośćSłowa - 1)
+		const bezOstatniej = próby[numerPróby].slice(0, długośćSłowa - 1) // taki slice:
+		// utnie ostatnią literkę jeśli słowo ma długość równą długośćSłowa
+		// albo zwróci całe słowo jeśli jest krótsze
 
 		setPróby(mutacjaListy(numerPróby, bezOstatniej + literka))
 	}
@@ -233,7 +275,7 @@ function Gra() {
 
 	useEffect(() => {
 		document.getElementById('gra')!.focus()
-	}, [])
+	}, []) // ustaw fokus na div gry przy pierwszym renderze
 
 	return (
 		<div id="gra" className="gra" tabIndex={0} onKeyDown={klawiaturaKlik}>

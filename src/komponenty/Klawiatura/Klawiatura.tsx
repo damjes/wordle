@@ -18,6 +18,7 @@ function ustalKolorek(
 
 function ustalWypustkę(literka: string) {
 	if (literka == 't' || literka == 'n') {
+		// te literki mają wypustki w układzie Colemaka
 		return ' wypustka'
 	} else {
 		return ''
@@ -69,6 +70,7 @@ function Klawiatura(props: {
 		</>
 	)
 
+	// do ostatniego wiersza dodajemy znaki sterujące
 	const literki = props.dozwolone.map((wiersz, indeks) => (
 		<div className="wiersz" key={indeks}>
 			{dajZawartoscWiersza(wiersz)}

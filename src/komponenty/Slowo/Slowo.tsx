@@ -26,9 +26,12 @@ function ustalKlasęWcześniejsze(
 		return 'dobrze'
 	}
 
+	// tutaj piszemy logikę, ale w paradygmacie imperatywnym
+
 	let któraLiterka = 0
 
 	for (let i = 0; i <= indeks; i++) {
+		// idziemy od początku do bieżącej literki
 		if (literka === słowo[i]) {
 			// jeżeli szkukana literka
 			if (literka !== rozwiązanie[i]) {
@@ -36,7 +39,8 @@ function ustalKlasęWcześniejsze(
 				któraLiterka++
 			}
 		}
-	}
+	} // ustalamy, które to wystąpienie literki na złym miejscu
+	// dobre miejsca pomijamy, bo literka na pewno jest na złym miejscu
 
 	let ileWZłymMiejscu = 0
 
@@ -48,7 +52,14 @@ function ustalKlasęWcześniejsze(
 				ileWZłymMiejscu++
 			}
 		}
-	}
+	} // ustalamy, ile jest takich literek w rozwiązaniu na złym miejscu
+
+	/*
+	eg. jeżeli są trzy literki þ na złych miejscach, a nasza literka þ jest drugą z kolei,
+	to zwrócimy 'przesunieta', bo ta literka zasługuje na wyróżnienie jako przesunięta
+	jeżeli jednak jest czwartą z kolei, to zwrócimy 'zle', bo nie ma dla niej miejsca w rozwiązaniu
+	w ten sposób tylko trzy pierwsze źle położone þ dostaną wyróżnienie
+	*/
 
 	if (któraLiterka <= ileWZłymMiejscu) {
 		return 'przesunieta'
@@ -75,7 +86,7 @@ function ustalKlasę(
 }
 
 function Słowo(props: { etap: string; słowo?: string; rozwiązanie: string }) {
-	const słowo = props.słowo || ''
+	const słowo = props.słowo || '' // może być puste dla niewypełnionych słów (przyszłe próby)
 	const długośćSłowa = props.rozwiązanie.length
 
 	const literki = słowo

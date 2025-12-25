@@ -6,7 +6,7 @@ function Literka(props: {
 	klasa: string
 	klik?: () => void
 }) {
-	const literka = props.literka || ''
+	const literka = props.literka || '' // literka może być pusta dla niewypełnionych miejsc (w przyszłych próbach)
 	const klasy = 'literka ' + props.klasa
 
 	return (
