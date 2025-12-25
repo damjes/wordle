@@ -1,29 +1,33 @@
 # Wordle
 
-Reimplementacja [Wordle](https://www.nytimes.com/puzzles/wordle)
-w
-[TypeScript](https://www.typescriptlang.org/)
+Reimplementacja [Wordle](https://www.nytimes.com/puzzles/wordle) na licencji [DamjesaP](LICENSE.md) ([polskie tłumaczenie](LICENSE.pl.md)) w:
 
--   [React](https://react.dev/)
+-   [TypeScript](https://www.typescriptlang.org/),
+-   [React](https://react.dev/),
 -   [Vite](https://vite.dev/).
 
-Możesz zagrać [online](https://wordle.damj.es/).
+Możesz zagrać online na:
+
+-   [GitHub Pages](https://wordle.damj.es/),
+-   [Vercelu](https://vercel.wordle.damj.es/)
 
 ## Uruchomienie
 
-Standardowy Vite:
+Standardowy Vite + pnpm:
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Można też zbudować stronę statyczną:
 
 ```bash
-npm install
-npm run build
+pnpm install
+pnpm run build
 ```
+
+Zwykły npm też powinien działać.
 
 ## Kreditsy
 
