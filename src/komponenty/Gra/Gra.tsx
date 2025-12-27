@@ -38,7 +38,7 @@ setLista((staraLista) => mutacjaListy(2, 'nowa wartość', staraLista))
 function mutacjaListy<T>(pozycja: number, nowyElement: T) {
 	return (lista: Array<T>) =>
 		lista.map((element, indeks) => {
-			if (indeks == pozycja) {
+			if (indeks === pozycja) {
 				return nowyElement
 			} else {
 				return element
@@ -115,7 +115,7 @@ function Gra() {
 	wywołać showModal() na elemencie dialogu
 	*/
 	useEffect(() => {
-		if (treśćOkienka != '') {
+		if (treśćOkienka !== '') {
 			okienko.current?.showModal()
 		}
 	}, [trigerOkienka])
@@ -130,7 +130,7 @@ function Gra() {
 	}
 
 	function backspace() {
-		if (wygranko != Wynik.GraWToku) {
+		if (wygranko !== Wynik.GraWToku) {
 			return // zablokuj usuwanie po wygranej/przegranej
 		}
 		setPotwierdzeniePoddaniaSię(false) // anuluj trwające poddanie się
@@ -138,7 +138,7 @@ function Gra() {
 	}
 
 	function enter() {
-		if (wygranko != Wynik.GraWToku) {
+		if (wygranko !== Wynik.GraWToku) {
 			return // zablokuj enter po wygranej/przegranej
 		}
 
@@ -146,7 +146,7 @@ function Gra() {
 
 		const bieżąceSłowo = próby[numerPróby]
 
-		if (bieżąceSłowo.length != długośćSłowa) {
+		if (bieżąceSłowo.length !== długośćSłowa) {
 			setTytułOkienka('Niewpisane słowo')
 			setTreśćOkienka('Słowo jest za krótkie. Wpisz całe słowo.')
 			setTrigerOkienka(!trigerOkienka)
@@ -167,7 +167,7 @@ function Gra() {
 
 		const nowyNumerPróby = numerPróby + 1 // przyda się numer kolejnej próby
 
-		if (bieżąceSłowo == rozwiązanie) {
+		if (bieżąceSłowo === rozwiązanie) {
 			setWygranko(Wynik.Wygranko)
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Wygranko')
@@ -176,7 +176,7 @@ function Gra() {
 			return
 		}
 
-		if (nowyNumerPróby == liczbaPrób) {
+		if (nowyNumerPróby === liczbaPrób) {
 			// ...o tu się przyda
 			setWygranko(Wynik.Przegranko)
 			setZmianaTrybuTrudnego(true)
@@ -198,7 +198,7 @@ function Gra() {
 
 	function dopiszLiterkę(literka: string) {
 		setPotwierdzeniePoddaniaSię(false) // anuluj trwające poddanie się
-		if (wygranko != Wynik.GraWToku) {
+		if (wygranko !== Wynik.GraWToku) {
 			return // zablokuj wpisywanie po wygranej/przegranej
 		}
 		if (trybTrudny) {
@@ -228,8 +228,8 @@ function Gra() {
 	const słowa = próby.map((słowo, indeks) => (
 		<Słowo
 			etap={
-				wygranko == Wynik.GraWToku
-					? indeks == numerPróby
+				wygranko === Wynik.GraWToku
+					? indeks === numerPróby
 						? 'teraz'
 						: indeks < numerPróby
 						? 'po'
@@ -243,14 +243,14 @@ function Gra() {
 	))
 
 	const napisResetu =
-		wygranko == Wynik.GraWToku
+		wygranko === Wynik.GraWToku
 			? potwierdzeniePoddaniaSię
 				? 'Czy na pewno?'
 				: 'Poddaj się'
 			: 'Zagraj jeszcze raz'
 
 	const funkcjaResetu =
-		wygranko == Wynik.GraWToku
+		wygranko === Wynik.GraWToku
 			? potwierdzeniePoddaniaSię
 				? () => setWygranko(Wynik.Przegranko)
 				: () => setPotwierdzeniePoddaniaSię(true)
@@ -258,17 +258,17 @@ function Gra() {
 
 	const klasaResetu =
 		'przyciskResetu' +
-		(wygranko == Wynik.GraWToku
+		(wygranko === Wynik.GraWToku
 			? potwierdzeniePoddaniaSię
 				? ' naPewno'
 				: ''
 			: ' jeszczeRaz')
 
 	function klawiaturaKlik(e: React.KeyboardEvent<HTMLDivElement>) {
-		if (e.key == 'Enter') {
+		if (e.key === 'Enter') {
 			e.preventDefault()
 			enter()
-		} else if (e.key == 'Backspace') {
+		} else if (e.key === 'Backspace') {
 			backspace()
 		} else {
 			dopiszLiterkę(e.key)
@@ -348,7 +348,7 @@ function Gra() {
 			<button className={klasaResetu} onClick={funkcjaResetu}>
 				{napisResetu}
 			</button>
-			{wygranko == Wynik.Przegranko && (
+			{wygranko === Wynik.Przegranko && (
 				<div className="opisRozwiazania">
 					<p>Rozwiązanie to:</p>
 					<Słowo
@@ -358,7 +358,7 @@ function Gra() {
 					/>
 				</div>
 			)}
-			{wygranko != Wynik.GraWToku && (
+			{wygranko !== Wynik.GraWToku && (
 				<div className="slownik">
 					Sprawdź rozwiązanie w{' '}
 					<a href={'https://sjp.pl/' + rozwiązanie}>

@@ -6,10 +6,10 @@ function ustalKlasęWpisywane(
 	indeks: number,
 	długośćSłowa: number
 ) {
-	const gdzieKursor = słowo.length - (długośćSłowa == słowo.length ? 1 : 0)
+	const gdzieKursor = słowo.length - (długośćSłowa === słowo.length ? 1 : 0)
 	// odejmij jeden jeśli na końcu słow
 	// NB: słowo.length to indeks pierwszej wolnej komórki za słowem
-	if (indeks == gdzieKursor) {
+	if (indeks === gdzieKursor) {
 		return 'kursor'
 	} else {
 		return 'nieznana'
@@ -22,7 +22,7 @@ function ustalKlasęWcześniejsze(
 	indeks: number
 ) {
 	const literka = słowo[indeks]
-	if (literka == rozwiązanie[indeks]) {
+	if (literka === rozwiązanie[indeks]) {
 		return 'dobrze'
 	}
 
@@ -74,11 +74,11 @@ function ustalKlasę(
 	rozwiązanie: string,
 	indeks: number
 ) {
-	if (etap == 'przed') {
+	if (etap === 'przed') {
 		return 'nieznana'
 	}
 
-	if (etap == 'teraz') {
+	if (etap === 'teraz') {
 		return ustalKlasęWpisywane(słowo, indeks, rozwiązanie.length)
 	}
 
