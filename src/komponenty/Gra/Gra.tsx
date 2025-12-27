@@ -95,7 +95,9 @@ function Gra() {
 
 	const okienko = useRef<HTMLDialogElement>(null)
 
-	const wypróbowane: string = próby.slice(0, numerPróby).join('')
+	const wypróbowane: string = próby
+		.slice(0, wygranko === Wynik.GraWToku ? numerPróby : liczbaPrób) // jeżeli gra trwa, bierzemy tylko przeszłe próby
+		.join('')
 
 	// włączamy lub wyłączamy klasę ciemny na elemencie <html>
 	// NB na drugi parametr toggla! :)
