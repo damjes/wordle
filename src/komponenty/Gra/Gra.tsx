@@ -288,7 +288,7 @@ function Gra() {
 			{trybDebug && (
 				<>
 					<p>rozwiązanie: "{rozwiązanie}"</p>
-					<p>wygranko: "{wygranko}"</p>
+					<p>wygranko: {Wynik[wygranko]}</p>
 					<p>wypróbowane: "{wypróbowane}"</p>
 					<p>
 						<button
