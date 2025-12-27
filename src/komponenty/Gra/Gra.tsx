@@ -278,7 +278,13 @@ function Gra() {
 	}, []) // ustaw fokus na div gry przy pierwszym renderze
 
 	return (
-		<div id="gra" className="gra" tabIndex={0} onKeyDown={klawiaturaKlik}>
+		<div
+			id="gra"
+			className="gra"
+			tabIndex={0}
+			onKeyDown={klawiaturaKlik}
+			onBlur={() => setPotwierdzeniePoddaniaSię(false)} // anuluj poddanie się po kliknięciu gdzie indziej
+		>
 			<Okienko
 				tytuł={tytułOkienka}
 				tekst={treśćOkienka}
