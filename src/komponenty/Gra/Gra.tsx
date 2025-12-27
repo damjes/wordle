@@ -271,7 +271,7 @@ function Gra() {
 		} else if (e.key === 'Backspace') {
 			backspace()
 		} else {
-			dopiszLiterkę(e.key)
+			dopiszLiterkę(e.key.toLowerCase()) // zamieniamy na małą literę, jakby ktoś miał CapsLocka, czy coś
 		}
 	}
 
