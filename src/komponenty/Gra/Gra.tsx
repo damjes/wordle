@@ -91,7 +91,6 @@ function Gra() {
 
 	const [treśćOkienka, setTreśćOkienka] = useState('')
 	const [tytułOkienka, setTytułOkienka] = useState('')
-	const [trigerOkienka, setTrigerOkienka] = useState(false) // patrz useEffect z trigerOkienka
 
 	const okienko = useRef<HTMLDialogElement>(null)
 
@@ -105,20 +104,6 @@ function Gra() {
 	useEffect(() => {
 		document.documentElement.classList.toggle('ciemny', trybCiemny)
 	}, [trybCiemny])
-
-	/*
-	okienka modalne działają w oparciu o API dialogów
-	https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement
-	musimy jakoś wywołać showModal() na elemencie dialogu
-	pomysł jest prosty: zanegować trigerOkienka za każdym razem,
-	gdy chcemy pokazać okienko, a potem w useEffect z trigerOkienka
-	wywołać showModal() na elemencie dialogu
-	*/
-	useEffect(() => {
-		if (treśćOkienka !== '') {
-			okienko.current?.showModal()
-		}
-	}, [trigerOkienka])
 
 	function resetuj() {
 		setRozwiązanie(losowyElement(listaSłów))
@@ -149,7 +134,7 @@ function Gra() {
 		if (bieżąceSłowo.length !== długośćSłowa) {
 			setTytułOkienka('Niewpisane słowo')
 			setTreśćOkienka('Słowo jest za krótkie. Wpisz całe słowo.')
-			setTrigerOkienka(!trigerOkienka)
+			okienko.current?.showModal()
 			return
 		}
 
@@ -159,7 +144,7 @@ function Gra() {
 			if (!listaSłów.includes(bieżąceSłowo)) {
 				setTytułOkienka('Ograniczenie trybu trudnego')
 				setTreśćOkienka('Nie ma takiego słowa.')
-				setTrigerOkienka(!trigerOkienka)
+				okienko.current?.showModal()
 				setPróby(mutacjaListy(numerPróby, '')) // anuluj próbę
 				return // i przerwij dalsze przetwarzanie
 			}
@@ -172,7 +157,7 @@ function Gra() {
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Wygranko')
 			setTreśćOkienka('Gratulacje! Udało Ci się odgadnąć słowo.')
-			setTrigerOkienka(!trigerOkienka)
+			okienko.current?.showModal()
 			return
 		}
 
@@ -182,7 +167,7 @@ function Gra() {
 			setZmianaTrybuTrudnego(true)
 			setTytułOkienka('Przegranko')
 			setTreśćOkienka('Niestety, nie udało Ci się odgadnąć słowa.')
-			setTrigerOkienka(!trigerOkienka)
+			okienko.current?.showModal()
 			return
 		}
 
@@ -210,7 +195,7 @@ function Gra() {
 				setTreśćOkienka(
 					'Nie można wpisać tej litery, bo jest niepoprawna.'
 				)
-				setTrigerOkienka(!trigerOkienka)
+				okienko.current?.showModal()
 				return // zablokuj ponowne wpisywanie tej samej błędnej literki
 			}
 		}
