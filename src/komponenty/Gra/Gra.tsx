@@ -346,7 +346,7 @@ function Gra() {
 			{wygranko !== Wynik.GraWToku && (
 				<div className="slownik">
 					Sprawdź rozwiązanie w{' '}
-					<a href={'https://sjp.pl/' + rozwiązanie}>
+					<a target="_blank" href={'https://sjp.pl/' + rozwiązanie}>
 						słowniku SJP.PL
 					</a>
 				</div>
