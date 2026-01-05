@@ -6,7 +6,7 @@ function App() {
 		<>
 			<GithubCorner
 				href="https://github.com/damjes/wordle/"
-				ariaLabel="Legu fontkodon en GitHub"
+				ariaLabel="Czytaj kod źródłowy na GitHub"
 			/>
 			<h1>Damjesowe Wordle</h1>
 			<Gra />
