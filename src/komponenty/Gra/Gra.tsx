@@ -66,6 +66,7 @@ const znakiKlawiatury = [
 const dozwoloneLiterki = znakiKlawiatury.flat()
 
 function Gra() {
+	let niepotrzebnaZmienna
 	const [rozwiązanie, setRozwiązanie] = useState(losowyElement(listaSłów))
 	const długośćSłowa = rozwiązanie.length
 	const liczbaPrób = 6
