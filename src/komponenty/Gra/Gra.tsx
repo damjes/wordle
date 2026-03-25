@@ -65,6 +65,8 @@ const znakiKlawiatury = [
 
 const dozwoloneLiterki = znakiKlawiatury.flat()
 
+const zbiorSłów = new Set(listaSłów)
+
 function Gra() {
 	const [rozwiązanie, setRozwiązanie] = useState(losowyElement(listaSłów))
 	const długośćSłowa = rozwiązanie.length
@@ -141,7 +143,7 @@ function Gra() {
 		setZmianaTrybuTrudnego(false) // po pierwszym enterze nie można już zmienić trybu trudnego
 
 		if (trybTrudny) {
-			if (!listaSłów.includes(bieżąceSłowo)) {
+			if (!zbiorSłów.has(bieżąceSłowo)) {
 				setTytułOkienka('Ograniczenie trybu trudnego')
 				setTreśćOkienka('Nie ma takiego słowa.')
 				okienko.current?.showModal()
