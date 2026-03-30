@@ -1,6 +1,6 @@
-# DamjesaP – Damjesa Permesilo v. 2.0
+# DamjesaP – Damjesa Permesilo v. 2.1
 
-1. Ĉiu uzanto havas kvar fundamentajn liberecojn:
+1. Ĉiu uzanto havas kvar fundamentajn liberecojn, kiujn oni povas ĝui sentempe en la tuta mondo:
 
     0. La libereco uzi la verkon por ajna celo.
 
@@ -12,7 +12,7 @@
     3. La libereco plibonigi la verkon kaj kundividi siajn plibonigojn kun ĉiuj.
        Atingebleco de la fonta formo de la verko estas antaŭkondiĉo por tio ĉi.
 
-2. Neniu rajtas nuligi aŭ limigi iun el la supraj liberecoj por iu ajn.
+2. Neniu rajtas nuligi aŭ limigi iun el la supraj liberecoj por iu ajn, inkluzive per teritoria aŭ geografia limigo de rajtoj.
 
 3. Neniu rajtas permesi, ke tiuj liberecoj estu nuligitaj aŭ limigitaj
    en derivaĵoj por iu ajn.

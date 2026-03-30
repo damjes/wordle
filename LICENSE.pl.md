@@ -1,8 +1,8 @@
 _Ten tekst to oficjalne tłumaczenie na język polski. Obowiązujący jest oryginał w Esperanto (plik `LICENSE.md`)._
 
-# DamjesaP – Licencja Damjesa v. 2.0
+# DamjesaP – Licencja Damjesa v. 2.1
 
-1. Każdy użytkownik ma cztery podstawowe wolności:
+1. Każdy użytkownik ma cztery podstawowe wolności, którymi może się cieszyć bezterminowo na całym świecie:
 
     0. Wolność używania utworu w dowolnym celu.
 
@@ -14,7 +14,7 @@ _Ten tekst to oficjalne tłumaczenie na język polski. Obowiązujący jest orygi
     3. Wolność ulepszania utworu i dzielenia się własnymi ulepszeniami ze wszystkimi.
        Dostępność formy źródłowej utworu jest warunkiem koniecznym tej wolności.
 
-2. Nikt nie ma prawa unieważnić ani ograniczyć żadnej z powyższych wolności wobec kogokolwiek.
+2. Nikt nie ma prawa unieważnić ani ograniczyć żadnej z powyższych wolności wobec kogokolwiek, w tym ograniczyć tych praw terytorialnie lub geograficznie.
 
 3. Nikt nie ma prawa zezwolić, by w dziełach pochodnych
    te wolności zostały unieważnione lub ograniczone komukolwiek.
